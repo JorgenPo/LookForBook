@@ -1,0 +1,86 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15.10.2016, 18:24:18
+    Author     : jorgen
+*/
+
+#product-list table {
+    width: 100%;
+    margin: 0 auto;
+    table-layout: fixed;
+}
+
+#error-msg {
+    font-weight: bold;
+    text-align: center;
+}
+
+.add-item-line {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 15px;
+}
+
+#product-list table td {
+    padding: 10px;
+}
+
+.product-item {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+    padding: 8px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.product-item figure {
+    
+}
+
+.product-title {
+    width: 80%;
+    margin: 0 10%;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 10px;
+    position: relative;
+}
+.product-title::after {
+    content: ''; /* Выводим элемент */
+    position: absolute; /* Абсолютное позиционирование */
+    right: 0; top: 0; /* Положение элемента */
+    height: 1.2em; /* Высота родителя */
+    width: 30px;
+    /* Градиент */
+    background: linear-gradient(to right, rgba(255,255,255, 0.1), #fff 100%);
+}
+.product-title:hover::after {
+    content: '';
+}
+
+.product-image {
+    margin-top: 10px;
+    box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
+}
+.product-image:hover {
+   
+}
+.product-info {
+    font-size: 0.9em;
+    margin: 10px;
+}
+
+.product-info label {
+    font-weight: bold;
+}
+
+.product-price {
+    text-decoration: underline;
+    font-size: 1.5em;
+}

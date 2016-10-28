@@ -1,0 +1,55 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<section id="product-list"> 
+    <c:if test="${error != null}">
+        <p id="error-msg">${error}: <span class="hint">${searchQuery}</span></p>
+    </c:if>
+    <table>
+        <tr>
+            <c:forEach var="product" items="${products}" varStatus="status">
+                <c:if test="${status.index != 0 && status.index % productRowLength == 0}">
+                </tr>
+                <tr>
+                </c:if>
+                <td>
+                    <div class="product-item">
+                       
+                        <img class="product-image"
+                             src="getImage?image=<c:out value="${product.image}" />" 
+                             width="${productImgWidth}"
+                             height="${productImgHeight}"
+                             alt="<c:out value='${product.title}' default='${tr.translate("No title provided")}' />" />
+                        
+                        <section class="product-info">
+                            <h2 class="product-title">
+                                <a href="item?id=${product.id}">
+                                    <c:out value="${product.title}" default='${tr.translate("No title provided")}' /><br>
+                                    <span class="smaller"><c:out value="${product.author}" /></span>
+                                </a>
+                            </h2>
+                                
+                            <p class="product-price">
+                                <c:out value="${product.price}" />
+                                ${tr.translate("*Curency*")}
+                            </p>
+                            <br>
+                            <p class="product-stock">
+                                <span class="hint">
+                                    ${tr.translate("Items on stock")}
+                                </span>: <c:out value="${product.stock}" />
+                            </p>
+                            <br>
+                            
+                            <button class="product-add default">${tr.translate("Add item to cart")}</button>
+                        </section>
+                       
+                    </div>
+                </td>
+            </c:forEach>
+        </tr>
+    </table>
+    
+    <div class="add-item-line"><a>${tr.translate("Did not find a book? Add your own!")}</a></div>
+    
+</section>

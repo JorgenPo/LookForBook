@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>ProductList</servlet-name>
+        <servlet-class>lookforbooks.ProductList</servlet-class>
+        <init-param>
+            <param-name>productRowLength</param-name>
+            <param-value>4</param-value>
+        </init-param>
+        <init-param>
+            <param-name>productImgWidth</param-name>
+            <param-value>120</param-value>
+        </init-param>
+        <init-param>
+            <param-name>productImgHeight</param-name>
+            <param-value>200</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>GetImage</servlet-name>
+        <servlet-class>lookforbooks.GetImage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Item</servlet-name>
+        <servlet-class>lookforbooks.Item</servlet-class>
+        <init-param>
+            <param-name>defaultPage</param-name>
+            <param-value>1</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductList</servlet-name>
+        <url-pattern> </url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetImage</servlet-name>
+        <url-pattern>/getImage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Item</servlet-name>
+        <url-pattern>/item</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>

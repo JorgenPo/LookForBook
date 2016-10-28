@@ -1,0 +1,174 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15.10.2016, 17:49:08
+    Author     : jorgen
+*/
+
+/*****************************************************/
+/******************* GLOBAL STYLES *******************/
+/*****************************************************/
+
+a {
+    color: #222222;
+    cursor: pointer;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    margin: 0;
+    color: #424242;
+    overflow-x: hidden;
+}
+
+h1, h2, h3 {
+    display: inline-block;
+}
+
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: activecaption;
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
+h3 {
+    font-size: 1.1em;
+}
+
+hr {
+    margin: 15px 0;
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+nav {
+    display: inline-block;
+    margin: 0;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.pull-left {
+    float: left !important;
+}
+
+.hint {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.smaller {
+    font-size: 0.8em;
+}
+
+button.default {
+    border: none;
+    background: #00A8A8;
+    color: white;
+    padding: 4px;
+    border-radius: 5%;
+}
+button.default:hover {
+    box-shadow: 2px 3px 3px rgba(0, 20, 40, 0.45);
+    cursor: pointer;
+}
+
+button.original {
+    height: 2em;
+    border: 2px solid #18544a;
+    border-radius: 5px;
+    background: #1f9884;
+    background-image: url("/images/icons/cart.png");
+    background-position: 0 0;
+    color: #f1f1f1;
+}
+
+button.original:hover {
+    box-shadow: 2px 3px 3px rgba(0, 20, 40, 0.45);  
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+}
+
+input[type="search"] {
+  padding: 5px;
+  border: none;
+  border-bottom: solid 2px #c9c9c9;
+  transition: border 0.3s;
+}
+input[type="search"]:focus {
+    border-bottom: solid 2px #969696;
+}
+
+aside {
+    display: block;
+}
+
+section {
+    
+}

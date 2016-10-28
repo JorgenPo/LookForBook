@@ -1,0 +1,187 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23.10.2016, 21:47:27
+    Author     : jorgen
+*/
+
+.container {
+    position: relative;
+}
+
+.image-block {
+    width: 20%;
+    height: 400px;
+    padding: 10px;
+    text-align: center;
+    
+    perspective: 500px;
+}
+
+.image-back {
+    position: absolute;
+    right: 33px;
+    top: 20px;
+    width: 50px;
+    height: 344px;
+    z-index: -1;
+}
+
+.image-block .image-thumb {
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.image-thumb:hover {
+    transform: rotateY(-15deg) translate(-5px);
+    -webkit-transition: transform 1s;
+    transition: transform 1s;
+    cursor: pointer;
+}
+
+.image-firstpages {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.main-content {
+    float: left;
+    padding: 40px 10px;
+    padding-left: 20px;
+    width: 52%;
+    min-height: 600px;
+}
+
+.item-title {
+    color: black;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.item-author {
+    margin-bottom: 10px;
+}
+
+.item-rating {
+    display: inline-block;
+}
+
+.info-type {
+    width: 100% !important;
+}
+
+.info-type ul {
+    
+}
+
+.info-type ul li {
+    color: #2f9080;
+    cursor: pointer;
+}
+.info-type li:hover {
+    text-decoration: underline;
+}
+
+.info-body {
+    margin-top: 15px;
+}
+.info-body label {
+    color: black;
+}
+
+.item-share {
+    color: #2f9080;
+    margin-top: 15px;
+    margin-right: 10px;
+    margin-bottom: 4px;
+}
+
+.share-list {
+    display: inline-block;
+}
+.share-list img {
+    vertical-align: middle;
+    padding: 1px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.share-list img:hover {
+   padding: 2px;
+   border-radius: 15px;
+   margin-bottom: -2px;
+   margin-right: -2px;
+   
+  /* HOVER ON */
+   -webkit-transition: border-radius 1s;
+}
+
+.item-type {
+    margin-top: 15px;
+}
+
+.item-type ul {
+    display: inline-block;
+}
+.item-type li {
+    float: left;
+    margin-right: 15px;
+    font-size: 1.2em;
+}
+
+.right-block {
+    position: relative;
+    top: 10px;
+    width: 18%;
+    margin-right: 15px;
+}
+.buy-info {
+    min-height: 250px;
+    padding: 10px 15px;
+    margin-top: 8px;
+    border: 2px dotted rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+}
+.buy-info p {
+    display: inline-block;
+}
+
+.item-price {
+    color: #c10a0a;
+    font-size: 1.7em;
+    margin-right: 5px;
+    margin-bottom: 15px;
+}
+
+.item-price-notbest {
+    
+}
+
+.item-available {
+    color: rgb(37, 175, 37);
+    font-size: 1.3em;
+}
+
+.item-unavailable {
+    color: black;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+.item-unavailable > a {
+    display: inline-block;
+    font-size: 13px;
+}
+
+.item-ship-info {
+    margin-top: 15px;
+}
+
+button#add-item {
+    display: inline-block;
+    position: relative;
+    top: 50px;
+    width: 100%;
+    margin: 0 auto;
+}
