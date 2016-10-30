@@ -94,7 +94,7 @@ public class Books  implements java.io.Serializable {
         this.pageCount = pageCount;
     }
     public short getStock() {
-        return (short)(this.stock + 5);
+        return this.stock;
     }
     
     public void setStock(short stock) {
