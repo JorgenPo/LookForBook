@@ -7,6 +7,7 @@ package lookforbooks;
 
 import buisness.Book;
 import db.BooksDB;
+import forms.AddBookForm;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -76,9 +77,9 @@ public class ProductList extends HttpServlet {
         HttpSession session = request.getSession();
         Translator tr = (Translator) session.getAttribute("tr");
         
-        if (isPost) {
-            Book book = new Book();
-        }
+        AddBookForm form = new AddBookForm();
+        
+        request.setAttribute("form", form);
         
         this.getServletContext()
                 .getRequestDispatcher("/productlist/additem.jsp")

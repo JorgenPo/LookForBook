@@ -5,38 +5,30 @@
  */
 package forms;
 
-import java.util.ArrayList;
-
 import lookforbooks.core.Form;
+import lookforbooks.core.InputFormElement;
 
 /**
  *
  * @author jorgen
  */
-public class AddBookForm implements Form {
-     private int price;
-     private int isbn;
-     private int year;
-     private String desc;
-     private String author;
-     private String genre;
-     private String lang;
-     private String house;
-
-    @Override
-    public ArrayList<String> validate() {
-        ArrayList<String> errors = new ArrayList<>();
-        
-        return errors;
-    }
-
+public class AddBookForm extends Form {
+    
     @Override
     public void init() {
-       
+        this.setId("addBookForm")
+                .setMethod("post");
+        
+        // Elements declaration
+        InputFormElement name = new InputFormElement("name");
+        name.set("placeholder", "Enter something!");
+        
+        this.add(name);
     }
 
     @Override
-    public String render() {
-       return "";
+    public boolean validate() {
+       return true; // TODO: validation
     }
+
 }

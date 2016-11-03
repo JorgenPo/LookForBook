@@ -21,7 +21,8 @@
     <body>
         <header><%@ include file="/WEB-INF/modules/header.jspf" %></header>
         <section class="main-content">
-            <form method="post" action="add">
+            ${form.render()}
+<!--            <form method="post" action="add">
                 <h2>${tr.translate("Submit book")}</h2>
                 <p>${tr.translate(
                      "Please, enter book information and choose cover photo. Book will be added after moderation!"
@@ -54,7 +55,7 @@
                 </select>
                 
                 <input type="submit" class="btn default" value="${tr.translate("Add book")}"/>
-            </form>
+            </form>-->
         </section>
         <footer><%@ include file="/WEB-INF/modules/footer.jspf" %></footer>
     </body>
