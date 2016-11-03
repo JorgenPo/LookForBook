@@ -50,6 +50,9 @@ Contributor(s):
     <property name="connection.characterEncoding">UTF-8</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
     <property name="hibernate.show_sql">true</property>
-    <mapping resource="buisness/Books.hbm.xml"/>
+    <mapping resource="buisness/Book.hbm.xml"/>
+    <mapping resource="buisness/User.hbm.xml"/>
+    <mapping resource="buisness/Invoice.hbm.xml"/>
+    <mapping resource="buisness/LineItem.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

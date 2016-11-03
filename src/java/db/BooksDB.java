@@ -5,7 +5,8 @@
  */
 package db;
 
-import buisness.Books;
+import buisness.Book;
+import java.util.ArrayList;
 
 import java.util.List;
 import org.hibernate.Query;
@@ -26,16 +27,19 @@ public class BooksDB {
     }
     
     public List getBooksList(int from, int to) {
-        List<Books> books = null;
+        List<Book> books = new ArrayList<>();
         
         Transaction t = null;
         try {
             t = session.beginTransaction();
-            Query q = session.createQuery("from Books");
+            Query q = session.createQuery("from Book");
             q.setFirstResult(from);
-            q.setMaxResults(to - from);
             
-            books = (List<Books>) q.list();
+            if (to != -1) {
+                q.setMaxResults(to - from);
+            }
+            
+            books = (List<Book>) q.list();
             
             t.commit();
         } catch(Exception e) {
@@ -49,13 +53,13 @@ public class BooksDB {
     }
     
     public List getBooksLike(String pattern) {
-        List<Books> list = null;
+        List<Book> list = null;
         
         Transaction t = null;
         try {
             t = session.beginTransaction();
             
-            Query q = session.createQuery("FROM Books B WHERE"
+            Query q = session.createQuery("FROM Book B WHERE"
                     + " B.title LIKE :searchPattern OR"
                     + " B.author LIKE :searchPattern");
             
@@ -73,17 +77,17 @@ public class BooksDB {
         return list;
     }
     
-    public Books getBookById(Integer id) {
-        Books book = null;
+    public Book getBookById(Integer id) {
+        Book book = null;
         
         Transaction t = null;
         try {
             t = session.beginTransaction();
             
-            Query q = session.createQuery("FROM Books B WHERE B.id = :id");
+            Query q = session.createQuery("FROM Book B WHERE B.id = :id");
             q.setInteger("id", id);
             
-            book = (Books) q.uniqueResult();
+            book = (Book) q.uniqueResult();
             
             t.commit();
         } catch(Exception e) {
@@ -101,7 +105,7 @@ public class BooksDB {
         Transaction t = null;
         try {
             t = session.beginTransaction();
-            Query q = session.createQuery("SELECT COUNT(*) FROM Books");
+            Query q = session.createQuery("SELECT COUNT(*) FROM Book");
             
             count = (Integer) q.uniqueResult();
             t.commit();

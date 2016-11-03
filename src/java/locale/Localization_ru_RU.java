@@ -26,6 +26,7 @@ public class Localization_ru_RU extends ListResourceBundle {
             {"enter book name or author", "введите название книги или автора"},
             {"Look For Book", "Look For Book"},
             {"No search results by query", "Поиск не дал результата"},
+            {"No items in database", "No items in database )"},
             {"Confused by that range? Just", "Озадачены выбором? Просто"},
             {"Find a book", "Найти книгу"},
             {"Hello, guest!", "Привет, гость!"},
@@ -54,8 +55,16 @@ public class Localization_ru_RU extends ListResourceBundle {
             {"Genre", "Жанр"},
             {"Rating", "Рейтинг"},
             {"ISBN", "ISBN"},
-            {"Classic", "Классика"}
-            
+            {"Classic", "Классика"},
+            {"Title", "Название"},
+            {"Description", "Описание"},
+            {"Author", "Автор"},
+            {"Publish house", "Издатель"},
+            {"Publish year", "Год издания"},
+            {"Original language", "Язык издания"},
+            {"Add book", "Добавить книгу в магазин!"},
+            {"Submit book", "Добавить новую книгу"},
+            {"Please, enter book information and choose cover photo. Book will be added after moderation!", "Пожалуйста, введите информацию о книге и выберите фотографию обложки. Книга будет добавлена после прохождения модерации!"},
         };
     }
     

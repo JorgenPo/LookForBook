@@ -5,7 +5,7 @@
  */
 package lookforbooks;
 
-import buisness.Books;
+import buisness.Book;
 import db.BooksDB;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,7 +42,7 @@ public class Item extends HttpServlet {
         BooksDB bdb = new BooksDB();
 
         String id = request.getParameter("id");
-        Books book = bdb.getBookById(Integer.parseInt(id));
+        Book book = bdb.getBookById(Integer.parseInt(id));
 
         if (book == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -66,7 +66,7 @@ public class Item extends HttpServlet {
         }
        
         this.getServletContext()
-                .getRequestDispatcher("/item.jsp")
+                .getRequestDispatcher("/item/item.jsp")
                 .forward(request, response);
     }
 

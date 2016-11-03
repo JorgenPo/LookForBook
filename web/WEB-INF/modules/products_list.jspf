@@ -16,7 +16,7 @@
                     <div class="product-item">
                        
                         <img class="product-image"
-                             src="getImage?image=<c:out value="${product.image}" />" 
+                             src="getImage?image=/items/${product.id}.jpg" 
                              width="${productImgWidth}"
                              height="${productImgHeight}"
                              alt="<c:out value='${product.title}' default='${tr.translate("No title provided")}' />" />
@@ -41,7 +41,7 @@
                             </p>
                             <br>
                             
-                            <button class="product-add default">${tr.translate("Add item to cart")}</button>
+                            <button class="product-add btn default">${tr.translate("Add item to cart")}</button>
                         </section>
                        
                     </div>
@@ -50,6 +50,6 @@
         </tr>
     </table>
     
-    <div class="add-item-line"><a>${tr.translate("Did not find a book? Add your own!")}</a></div>
+    <div class="add-item-line"><a href="books/add">${tr.translate("Did not find a book? Add your own!")}</a></div>
     
 </section>

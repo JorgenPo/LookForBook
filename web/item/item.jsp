@@ -21,11 +21,11 @@
         <script type="text/javascript" src="scripts/item.js"></script>
     </head>
     <body>
-        <header><%@ include file="WEB-INF/modules/header.jspf" %></header>
+        <header><%@ include file="/WEB-INF/modules/header.jspf" %></header>
         
         <div class="container">
             <aside class="image-block pull-left">
-                <img class="image-thumb" src="getImage?image=${item.image}"
+                <img class="image-thumb" src="getImage?image=items/${item.id}.jpg"
                      alt="${item.title}"
                      width="220px" height="344px"
                      onload="document.querySelector('.image-back').style = 'background: rgba(0, 0, 0, 0.4);'"/>
@@ -71,7 +71,7 @@
                         <div id="full-desc" style="display: none;">
                             <label>${tr.translate("ISBN")}: </label>${item.isbn}<br>
                             <label>${tr.translate("Price")}: </label>${item.price}<br>
-                            <label>${tr.translate("Pages")}: </label>${item.pageCount}<br>
+                            <label>${tr.translate("Pages")}: </label>500<br>
                             <label>${tr.translate("Genre")}: </label>${tr.translate("Classic")}<br>
                             <label>${tr.translate("Rating")}: </label>9/10<br>
                             <br>
@@ -84,12 +84,12 @@
                 </section>
                     
                 <section class="similiar-items">
-                    <!--<%@ include file="WEB-INF/modules/header.jspf" %>-->
+                    <!--<%@ include file="/WEB-INF/modules/header.jspf" %>-->
                 </section>
             </section>
            
             <aside class="right-block pull-right">
-                <%@ include file="WEB-INF/modules/language.jspf" %>
+                <%@ include file="/WEB-INF/modules/language.jspf" %>
                 <div class="buy-info">
                     <p class="item-price">${item.price}${tr.translate("*Curency*")}</p>
                     <a class="item-price-notbest hint">${tr.translate("Know better offer?")}</a>
@@ -122,7 +122,7 @@
                 </div>
             </aside>
         </div>
-        <footer><%@ include file="WEB-INF/modules/footer.jspf" %></footer>
+        <footer><%@ include file="/WEB-INF/modules/footer.jspf" %></footer>
         <script>
             window.defaultPage = ${defaultPage};
         </script>

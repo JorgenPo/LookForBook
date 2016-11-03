@@ -12,7 +12,7 @@
 
 DROP DATABASE IF EXISTS lookforbook;
 
-CREATE DATABASE lookforbook;
+CREATE DATABASE lookforbook CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 USE lookforbook;
 
@@ -46,17 +46,18 @@ CREATE TABLE User (
 
 CREATE TABLE Book (
     book_id int not null auto_increment,
-    book_code varchar(10) not null default '',
+    book_title varchar(100) not null default '',
     book_desc varchar(1000) not null default '',
     book_price int not null default '0',
     
-    book_isbn integer(13) not null default '0000000000000',
+    book_isbn varchar(13) not null default '0000000000000',
     book_author varchar(50) not null default 'unknown',
     book_genre varchar(20) not null default 'Misc',
     book_year integer(4) not null default '0',
     book_lang varchar(10) not null default 'unknown',
     book_house varchar(20) not null default 'unknown',
-    
+    book_stock integer(4) not null default '0'
+
     PRIMARY KEY (book_id)
 );
 
@@ -64,7 +65,7 @@ CREATE TABLE Invoice (
     invoice_id int not null auto_increment,
     user_id int not null,
     
-    invoice_date datetime not null default '0000-00-00 00:00:00',
+    invoice_date datetime not null default CURRENT_TIMESTAMP,
     total_amount smallint not null default '0',
     is_processed enum('y','n') default null,
     delivery enum('y','n') default null,

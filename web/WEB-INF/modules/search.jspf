@@ -8,7 +8,7 @@
                placeholder='${tr.translate("enter book name or author")}'
                value='${searchQuery}'/>
         <img class="search-submit" width="23" height="23"
-             src="getImage?image=icons/magnifer.png" 
+             src="<c:url value='/getImage?image=icons/magnifer.png'/>" 
              onclick="document.querySelector('.search > form').submit();"/>
     </form>
 </section>

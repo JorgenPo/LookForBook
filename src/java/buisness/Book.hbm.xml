@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30.10.2016 16:42:47 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="lookforbook" name="buisness.Book" optimistic-lock="version" table="Book">
+    <id name="id" type="java.lang.Integer">
+      <column name="book_id"/>
+      <generator class="identity"/>
+    </id>
+    <property name="title" type="string">
+      <column length="100" name="book_title" not-null="true"/>
+    </property>
+    <property name="desc" type="string">
+      <column length="1000" name="book_desc" not-null="true"/>
+    </property>
+    <property name="price" type="int">
+      <column name="book_price" not-null="true"/>
+    </property>
+    <property name="isbn" type="int">
+      <column name="book_isbn" not-null="true"/>
+    </property>
+    <property name="author" type="string">
+      <column length="50" name="book_author" not-null="true"/>
+    </property>
+    <property name="genre" type="string">
+      <column length="20" name="book_genre" not-null="true"/>
+    </property>
+    <property name="year" type="int">
+      <column name="book_year" not-null="true"/>
+    </property>
+    <property name="lang" type="string">
+      <column length="10" name="book_lang" not-null="true"/>
+    </property>
+    <property name="house" type="string">
+      <column length="20" name="book_house" not-null="true"/>
+    </property>
+    <property name="stock" type="int">
+      <column name="book_stock" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

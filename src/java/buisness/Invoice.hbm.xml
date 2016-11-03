@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30.10.2016 16:42:47 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="buisness.Invoice" table="Invoice" catalog="lookforbook" optimistic-lock="version">
+        <id name="invoiceId" type="java.lang.Integer">
+            <column name="invoice_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="user" class="buisness.User" fetch="select">
+            <column name="user_id" not-null="true" />
+        </many-to-one>
+        <property name="invoiceDate" type="timestamp">
+            <column name="invoice_date" length="19" not-null="true" />
+        </property>
+        <property name="totalAmount" type="short">
+            <column name="total_amount" not-null="true" />
+        </property>
+        <property name="isProcessed" type="string">
+            <column name="is_processed" length="2" />
+        </property>
+        <property name="delivery" type="string">
+            <column name="delivery" length="2" />
+        </property>
+        <property name="deliveryCost" type="java.lang.Integer">
+            <column name="delivery_cost" />
+        </property>
+        <set name="lineItems" table="LineItem" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="invoice_id" not-null="true" />
+            </key>
+            <one-to-many class="buisness.LineItem" />
+        </set>
+    </class>
+</hibernate-mapping>

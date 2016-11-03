@@ -2,7 +2,7 @@
 
 <nav class="menu horizontal">
     <div class="logo pull-left">
-        <img class="logo-image" src="getImage?image=logo.png" alt="Logo"> 
+        <img class="logo-image" src="<c:url value='/getImage?image=logo.png'/>" alt="Logo"> 
         <span class="logo-label"><a href="/LookForBook-war/">${tr.translate("Look For Book")}</a></span>
     </div>
     <%@ include file="search.jspf" %>

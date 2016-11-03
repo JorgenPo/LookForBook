@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30.10.2016 16:42:47 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="buisness.User" table="User" catalog="lookforbook" optimistic-lock="version">
+        <id name="userId" type="java.lang.Integer">
+            <column name="user_id" />
+            <generator class="identity" />
+        </id>
+        <property name="firstName" type="string">
+            <column name="first_name" length="50" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="50" />
+        </property>
+        <property name="fatherName" type="string">
+            <column name="father_name" length="50" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="50" />
+        </property>
+        <property name="country" type="string">
+            <column name="country" length="50" />
+        </property>
+        <property name="district" type="string">
+            <column name="district" length="50" />
+        </property>
+        <property name="city" type="string">
+            <column name="city" length="50" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="100" />
+        </property>
+        <property name="zip" type="string">
+            <column name="zip" length="10" />
+        </property>
+        <property name="creditCardType" type="string">
+            <column name="credit_card_type" length="20" />
+        </property>
+        <property name="creditCardNumber" type="string">
+            <column name="credit_card_number" length="20" />
+        </property>
+        <property name="creditCardExp" type="string">
+            <column name="credit_card_exp" length="7" />
+        </property>
+        <set name="invoices" table="Invoice" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="buisness.Invoice" />
+        </set>
+    </class>
+</hibernate-mapping>
