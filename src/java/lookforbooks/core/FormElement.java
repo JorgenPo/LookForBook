@@ -9,23 +9,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import lookforbooks.core.utils.DOMelement;
 
 /**
  * Interface for form element 
  * 
  * @author jorgen
- * @param <T> Form element type
  */
-public abstract class FormElement<T> {
-    private String id;
-    private String name;
-    private String label;
-    private boolean isVisible;
-    private List<String> classList;
-    private Map<String, String> attributes;
-    private T value;
+public abstract class FormElement {
+    protected DOMelement dom;
+    
+    protected String id;
+    protected String name;
+    protected String label;
+    protected boolean isVisible;
+    protected List<String> classList;
+    protected Map<String, String> attributes;
+    protected String value;
 
-    public FormElement(String name, Map<String, String> attrs) {
+    public FormElement(String tagName, String name, Map<String, String> attrs) {
         this.name = name;
         this.id = null;
         this.label = this.name;
@@ -38,13 +40,15 @@ public abstract class FormElement<T> {
         } else {
             this.attributes = attrs;
         }
+        
+        this.dom = new DOMelement(tagName);
     }
     
     public String getId() {
         return id;
     }
 
-    public FormElement<T> setId(String id) {
+    public FormElement setId(String id) {
         this.id = id;
         return this;
     }
@@ -53,7 +57,7 @@ public abstract class FormElement<T> {
         return name;
     }
 
-    public FormElement<T> setName(String name) {
+    public FormElement setName(String name) {
         this.name = name;
         return this;
     }
@@ -62,21 +66,30 @@ public abstract class FormElement<T> {
         return isVisible;
     }
 
-    public FormElement<T> setIsVisible(boolean isVisible) {
+    public FormElement setIsVisible(boolean isVisible) {
         this.isVisible = isVisible;
         return this;
     }
     
-    public FormElement<T> setAttributes(Map<String, String> attrs) {
+    public FormElement setAttributes(Map<String, String> attrs) {
         this.attributes = attrs;
         return this;
+    }
+    
+    public FormElement set(String name, String value) {
+        this.attributes.put(name, value);
+        return this;
+    }
+    
+    public String get(String name) {
+        return this.attributes.get(name);
     }
     
     public Map<String, String> getAttributes() {
         return this.attributes;
     }
     
-    public FormElement<T> setLabel(String label) {
+    public FormElement setLabel(String label) {
         this.label = label;
         return this;
     }
@@ -85,23 +98,23 @@ public abstract class FormElement<T> {
         return this.label;
     }
     
-    public T getValue() {
+    public String getValue() {
         return this.value;
     }
     
-    public FormElement<T> setValue(T val) {
+    public FormElement setValue(String val) {
         this.value = val;
         return this;
     }
     
-    public FormElement<T> addClass(String name) {
+    public FormElement addClass(String name) {
         if (this.classList.indexOf(name) == -1) {
             this.classList.add(name);
         }
         return this;
     }
     
-    public FormElement<T> removeClass(String name) {
+    public FormElement removeClass(String name) {
         this.classList.remove(name);
         return this;
     }
@@ -110,8 +123,28 @@ public abstract class FormElement<T> {
         return this.classList;
     }
     
-    public abstract String validate();
+    public abstract boolean validate();
     
-    public abstract String getHtml();
+    public String getHtml() {
+        StringBuilder classes = new StringBuilder();
+        for (String cls : this.classList) {
+            classes.append(cls);
+            classes.append(" ");
+        }
+        if (classes.length() > 0) {
+            classes.deleteCharAt(classes.length() - 1);
+        }
+        
+        for (String key : this.attributes.keySet()) {
+            this.dom.set(key, this.attributes.get(key));
+        }
+        
+        this.dom.set("id", id)
+                .set("class", classes.toString())
+                .set("name", this.name)
+                .set("value", this.value);
+                
+        return this.dom.getHtml();
+    }
 }
 
