@@ -17,6 +17,14 @@ and open the template in the editor.
     display: inline-block;
     vertical-align: middle;
     padding: 5px;
+    border: none;
+}
+
+.search input {
+    display: inline-block;
+    width: 250px;
+    background: white;
+    margin-top: 0;
 }
 
 .search-label {

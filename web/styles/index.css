@@ -13,3 +13,26 @@ and open the template in the editor.
   min-height: 700px;
   margin: 10px auto;
 }
+
+.main-content form {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.main-content form input,
+.main-content form textarea,
+.main-content form select {
+    margin: 0 auto;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.main-content form label {
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+}
+
+.main-content form .btn {
+    margin-top: 15px;
+}

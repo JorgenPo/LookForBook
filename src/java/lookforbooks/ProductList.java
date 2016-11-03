@@ -5,7 +5,7 @@
  */
 package lookforbooks;
 
-import buisness.Books;
+import buisness.Book;
 import db.BooksDB;
 import java.io.IOException;
 import java.util.List;
@@ -23,10 +23,80 @@ import javax.servlet.http.HttpSession;
  * @author jorgen
  */
 public class ProductList extends HttpServlet {
+    private boolean isPost = false;
     
-    private BooksDB bdb;
+    private void indexAction(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        ServletContext context = this.getServletContext();
+        ServletConfig config  = this.getServletConfig();
+        HttpSession session = request.getSession();
+        Translator tr = (Translator) session.getAttribute("tr");
+        
+        BooksDB bdb = new BooksDB();
+        
+        List<Book> products;
+        String query;
+        
+        if((query = request.getParameter("searchQuery")) != null && !query.equals("")) {
+            products = bdb.getBooksLike(query);
+            request.setAttribute("searchQuery", query);
+        } else {
+            products = bdb.getBooksList(0, -1);
+        }
+       
+        if (products.isEmpty()) {
+            if (query != null) {
+                request.setAttribute("error", tr.translate("No search results by query"));
+            } else {
+                request.setAttribute("error", tr.translate("No items in database"));
+            }
+        } 
+        
+        request.setAttribute("products", products);
+        
+        // Set initial params as attrs
+        String productRowLength = config.getInitParameter("productRowLength");
+        String itemWidth = config.getInitParameter("productImgWidth");
+        String itemHeight = config.getInitParameter("productImgHeight");
+        
+        request.setAttribute("productRowLength", productRowLength);
+        request.setAttribute("productImgWidth", itemWidth);
+        request.setAttribute("productImgHeight", itemHeight);
+        
+        
+        this.getServletContext()
+                .getRequestDispatcher("/productlist/index.jsp")
+                .forward(request, response);
+    }
     
-
+    private void addAction(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        ServletContext context = this.getServletContext();
+        ServletConfig config  = this.getServletConfig();
+        HttpSession session = request.getSession();
+        Translator tr = (Translator) session.getAttribute("tr");
+        
+        if (isPost) {
+            Book book = new Book();
+        }
+        
+        this.getServletContext()
+                .getRequestDispatcher("/productlist/additem.jsp")
+                .forward(request, response);
+    }
+    
+    
+    private void doRoute(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+            String action = request.getRequestURI();
+            
+            if (action.endsWith("/books/add")) {
+                this.addAction(request, response);
+            } else {
+                this.indexAction(request, response);
+            }
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -43,18 +113,6 @@ public class ProductList extends HttpServlet {
         ServletConfig config  = this.getServletConfig();
         HttpSession session = request.getSession();
         
-        BooksDB bdb = new BooksDB();
-        
-        List<Books> products = null;
-        String query = null;
-        
-        if((query = request.getParameter("searchQuery")) != null && !query.equals("")) {
-            products = bdb.getBooksLike(query);
-            request.setAttribute("searchQuery", query);
-        } else {
-            products = bdb.getBooksList(0, -1);
-        }
-        
         // Set up Translator if need
         Translator tr = (Translator) session.getAttribute("tr");
         String lang;
@@ -67,26 +125,8 @@ public class ProductList extends HttpServlet {
             tr = new Translator(request.getLocale());
             session.setAttribute("tr", tr);
         }
-       
-        if (products.isEmpty()) {
-            request.setAttribute("error", tr.translate("No search results by query"));
-        }
         
-        request.setAttribute("products", products);
-        
-        // Set initial params as attrs
-        String productRowLength = config.getInitParameter("productRowLength");
-        String itemWidth = config.getInitParameter("productImgWidth");
-        String itemHeight = config.getInitParameter("productImgHeight");
-        
-        request.setAttribute("productRowLength", productRowLength);
-        request.setAttribute("productImgWidth", itemWidth);
-        request.setAttribute("productImgHeight", itemHeight);
-        
-        
-        this.getServletContext()
-                .getRequestDispatcher("/index.jsp")
-                .forward(request, response);
+        this.doRoute(request, response);
     }
 
     /**
@@ -100,7 +140,9 @@ public class ProductList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        this.isPost = true;
         this.doGet(request, response);
+        this.isPost = false;
     }
 
     /**
