@@ -9,27 +9,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import lookforbooks.core.utils.DOMelement;
 
 /**
  *
  * @author jorgen
  */
 public abstract class Form {
-    private String id;
-    private boolean isVisible;
-    private List<String> classList;
-    private Map<String, String> attributes;
-    private List<FormElement> elements;
-    private String method;
-    
+    protected DOMelement dom;
+
+    protected String id;
+    protected boolean isVisible;
+    protected List<String> classList;
+    protected Map<String, String> attributes;
+    protected Map<String, FormElement> elements;
+    protected String method;
+    protected String action;
     
     public Form() {
         this.id = null;
         this.isVisible = true;
         this.classList = new ArrayList<>();
         this.attributes = new TreeMap<>();
-        this.elements = new ArrayList<>();
+        this.elements = new TreeMap<>();
         this.method = "post";
+        
+        this.dom = new DOMelement("form");
         
         init();
     }
@@ -40,65 +45,136 @@ public abstract class Form {
      */
     public abstract void init();
 
-    protected String getId() {
+    public String getId() {
         return id;
     }
 
-    protected Form setId(String id) {
+    public Form setId(String id) {
         this.id = id;
         return this;
     }
 
-    protected boolean isIsVisible() {
+    public boolean isIsVisible() {
         return isVisible;
     }
 
-    protected Form setIsVisible(boolean isVisible) {
+    public Form setIsVisible(boolean isVisible) {
         this.isVisible = isVisible;
         return this;
     }
 
-    protected List<String> getClassList() {
+    public List<String> getClassList() {
         return classList;
     }
 
-    protected Form setClassList(List<String> classList) {
+    public Form setClassList(List<String> classList) {
         this.classList = classList;
         return this;
     }
 
-    protected Map<String, String> getAttributes() {
+    public Map<String, String> getAttributes() {
         return attributes;
     }
 
-    protected Form setAttributes(Map<String, String> attributes) {
+    public Form setAttributes(Map<String, String> attributes) {
         this.attributes = attributes;
         return this;
     }
 
-    protected List<FormElement> getElements() {
-        return elements;
+    public Map<String, FormElement> getElements() {
+        return this.elements;
     }
-
-    protected Form setElements(List<FormElement> elements) {
-        this.elements = elements;
+    
+    public List<String> getValues() {
+        ArrayList<String> values = new ArrayList<>();
+         
+        this.elements.keySet().forEach((key) -> {
+            values.add((String) this.elements.get(key).getValue());
+        });
+        
+        return values;
+    }
+    
+    public Form setValue(String name, String value) {
+        this.elements.get(name).setValue(name);
         return this;
     }
-
-    protected String getMethod() {
+    
+    public String getMethod() {
         return method;
     }
 
-    protected Form setMethod(String method) {
+    public Form setMethod(String method) {
         this.method = method;
         return this;
     }
     
-    /**
-     * Validate form
-     * @return list of errors (as Strings)
-     */
-    public abstract ArrayList<String> validate();
+    public Form addClass(String name) {
+        if (this.classList.indexOf(name) == -1) {
+            this.classList.add(name);
+        }
+        return this;
+    }
     
-    public abstract String render();
+    public Form removeClass(String name) {
+        this.classList.remove(name);
+        return this;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public Form setAction(String action) {
+        this.action = action;
+        return this;
+    }
+    
+    public Form add(FormElement elem) {
+        this.elements.put(elem.getName(), elem);
+        return this;
+    }
+    
+    public boolean validate() {
+        boolean isValid = true;
+        
+        for (String key : this.elements.keySet()) {
+            isValid = this.elements.get(key).validate() | isValid;
+            if (!isValid) break;
+        }
+        
+        return isValid;
+    }
+    
+    public String render() {
+        // Generate elements html
+        StringBuilder html = new StringBuilder();
+        for (String key : this.elements.keySet()) {
+            html.append(this.elements.get(key).getHtml());
+            html.append("<br>");
+        }
+        if (html.length() > 0) {
+            html.deleteCharAt(html.length() - 1);
+        }
+        
+        StringBuilder classes = new StringBuilder();
+        for (String cls : this.classList) {
+            classes.append(cls);
+            classes.append(" ");
+        }
+        if (classes.length() > 0) {
+            classes.deleteCharAt(classes.length() - 1);
+        }
+        
+        for (String key : this.attributes.keySet()) {
+            this.dom.set(key, this.attributes.get(key));
+        }
+        
+        this.dom.set("id", id)
+                .set("class", classes.toString());
+        
+        this.dom.setInnerHtml(html.toString());
+        
+        return this.dom.getHtml();
+    }
 }
