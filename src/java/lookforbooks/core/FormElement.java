@@ -26,7 +26,7 @@ public abstract class FormElement {
     protected List<String> classList;
     protected Map<String, String> attributes;
     protected String value;
-
+    
     public FormElement(String tagName, String name, Map<String, String> attrs) {
         this.name = name;
         this.id = null;
@@ -125,7 +125,7 @@ public abstract class FormElement {
     
     public abstract boolean validate();
     
-    public String getHtml() {
+    public DOMelement getDom() {
         StringBuilder classes = new StringBuilder();
         for (String cls : this.classList) {
             classes.append(cls);
@@ -144,7 +144,7 @@ public abstract class FormElement {
                 .set("name", this.name)
                 .set("value", this.value);
                 
-        return this.dom.getHtml();
+        return this.dom;
     }
 }
 
