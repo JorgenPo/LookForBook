@@ -2,3 +2,4 @@ build.xml
 build/
 dist/
 nbproject/
+/web/images/items/
