@@ -188,6 +188,10 @@ public abstract class Form {
         }
         
         this.elements.forEach((elem) -> {
+            if (!elem.getLabel().isEmpty()) {
+                this.dom.append(elem.getLabelDom());
+            }
+            
             this.dom.append(elem.getDom());
             this.dom.append("br");
         });

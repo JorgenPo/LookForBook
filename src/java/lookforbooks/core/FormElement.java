@@ -18,10 +18,10 @@ import lookforbooks.core.utils.DOMelement;
  */
 public abstract class FormElement {
     protected DOMelement dom;
+    protected DOMelement domLabel;
     
     protected String id;
     protected String name;
-    protected String label;
     protected boolean isVisible;
     protected List<String> classList;
     protected Map<String, String> attributes;
@@ -30,7 +30,6 @@ public abstract class FormElement {
     public FormElement(String tagName, String name, Map<String, String> attrs) {
         this.name = name;
         this.id = null;
-        this.label = this.name;
         this.isVisible = true;
         this.classList = new ArrayList<>();
         this.value = null;
@@ -42,6 +41,7 @@ public abstract class FormElement {
         }
         
         this.dom = new DOMelement(tagName);
+        this.domLabel = new DOMelement("label");
     }
     
     public String getId() {
@@ -90,12 +90,12 @@ public abstract class FormElement {
     }
     
     public FormElement setLabel(String label) {
-        this.label = label;
+        this.domLabel.setInnerHtml(label);
         return this;
     }
     
     public String getLabel() {
-        return this.label;
+        return this.domLabel.getInnerHtml();
     }
     
     public String getValue() {
@@ -145,6 +145,14 @@ public abstract class FormElement {
                 .set("value", this.value);
                 
         return this.dom;
+    }
+    
+    public DOMelement getLabelDom() {
+        if (this.id != null) {
+            this.domLabel.set("for", this.id);
+        }
+        
+        return this.domLabel;
     }
 }
 
