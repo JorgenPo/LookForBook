@@ -17,12 +17,14 @@ import lookforbooks.core.utils.DOMelement;
  */
 public abstract class Form {
     protected DOMelement dom;
-
+    protected DOMelement domTitle;
+    protected DOMelement domDescription;
+    
     protected String id;
     protected boolean isVisible;
     protected List<String> classList;
     protected Map<String, String> attributes;
-    protected Map<String, FormElement> elements;
+    protected List<FormElement> elements;
     protected String method;
     protected String action;
     
@@ -31,10 +33,12 @@ public abstract class Form {
         this.isVisible = true;
         this.classList = new ArrayList<>();
         this.attributes = new TreeMap<>();
-        this.elements = new TreeMap<>();
+        this.elements = new ArrayList<>();
         this.method = "post";
         
         this.dom = new DOMelement("form");
+        this.domTitle = new DOMelement("h2");
+        this.domDescription = new DOMelement("p");
         
         init();
     }
@@ -81,22 +85,28 @@ public abstract class Form {
         return this;
     }
 
-    public Map<String, FormElement> getElements() {
+    public List<FormElement> getElements() {
         return this.elements;
     }
     
     public List<String> getValues() {
         ArrayList<String> values = new ArrayList<>();
          
-        this.elements.keySet().forEach((key) -> {
-            values.add((String) this.elements.get(key).getValue());
+        this.elements.forEach((elem) -> {
+            values.add((String) elem.getValue());
         });
         
         return values;
     }
     
     public Form setValue(String name, String value) {
-        this.elements.get(name).setValue(name);
+        for (FormElement elem : this.elements) {
+           if (elem.getName().equals(name)) {
+               elem.setValue(value);
+               break;
+           } 
+        }
+        
         return this;
     }
     
@@ -131,15 +141,35 @@ public abstract class Form {
     }
     
     public Form add(FormElement elem) {
-        this.elements.put(elem.getName(), elem);
+        this.elements.add(elem);
         return this;
     }
+
+    public String getDescription() {
+        return this.domTitle.getInnerHtml();
+    }
+
+    public Form setDescription(String description) {
+        this.domDescription.setInnerHtml(description);
+        return this;
+    }
+
+    public String getTitle() {
+        return this.domTitle.getInnerHtml();
+    }
+
+    public Form setTitle(String title) {
+        this.domTitle.setInnerHtml(title);
+        return this;
+    }
+    
+    
     
     public boolean validate() {
         boolean isValid = true;
         
-        for (String key : this.elements.keySet()) {
-            isValid = this.elements.get(key).validate() | isValid;
+        for (FormElement elem : this.elements) {
+            isValid = elem.validate() | isValid;
             if (!isValid) break;
         }
         
@@ -148,14 +178,21 @@ public abstract class Form {
     
     public String render() {
         // Generate elements html
-        StringBuilder html = new StringBuilder();
-        for (String key : this.elements.keySet()) {
-            html.append(this.elements.get(key).getHtml());
-            html.append("<br>");
+        this.dom.setInnerHtml("");
+        
+        if (!this.domTitle.isEmpty()) {
+            this.dom.append(this.domTitle);
         }
-        if (html.length() > 0) {
-            html.deleteCharAt(html.length() - 1);
+        if (!this.domDescription.isEmpty()) {
+            this.dom.append(this.domDescription);
         }
+        
+        this.elements.forEach((elem) -> {
+            this.dom.append(elem.getDom());
+            this.dom.append("br");
+        });
+        
+        this.dom.getLastChild().remove();
         
         StringBuilder classes = new StringBuilder();
         for (String cls : this.classList) {
@@ -170,10 +207,9 @@ public abstract class Form {
             this.dom.set(key, this.attributes.get(key));
         }
         
-        this.dom.set("id", id)
+        this.dom.set("id", this.id)
+                .set("method", this.method)
                 .set("class", classes.toString());
-        
-        this.dom.setInnerHtml(html.toString());
         
         return this.dom.getHtml();
     }
