@@ -5,6 +5,8 @@
  */
 package lookforbooks.core.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -13,6 +15,9 @@ import java.util.TreeMap;
  * @author jorgen
  */
 public class DOMelement {
+    protected DOMelement parent;
+    protected List<DOMelement> children;
+    
     protected String tagName;
     protected Map<String, String> attributes;
     protected String innerHtml;
@@ -20,6 +25,7 @@ public class DOMelement {
     protected boolean hasBody;
     
     private boolean needUpdate;
+    private boolean needInnerUpdate;
     
     public DOMelement(String tagName) {
         this.tagName = tagName;
@@ -29,10 +35,80 @@ public class DOMelement {
         
         // There are tags with no body
         this.hasBody = tagName.equals("input") |
-                       tagName.equals("link");
+                       tagName.equals("link") |
+                       tagName.equals("br") |
+                       tagName.equals("hr");
         this.hasBody = !this.hasBody;
         
         this.needUpdate = true;
+        this.needInnerUpdate = false;
+        
+        this.children = new ArrayList<>();
+        this.parent = null;
+    }
+    
+    public DOMelement append(DOMelement element) {
+        if (!this.hasBody) {
+            return this; // TODO: throw!
+        }
+        
+        element.setParent(this);
+        this.children.add(element);
+        
+        this.needUpdate = true;
+        
+        return this;
+    }
+    
+    public DOMelement append(String tagName) {
+        DOMelement element = new DOMelement(tagName);
+        return this.append(element);
+    }
+    
+    public List<DOMelement> getChildren() {
+        return this.children;
+    }
+    
+    public DOMelement getChild(int index) {
+        DOMelement child;
+        try {
+            child = this.children.get(index);
+        } catch(IndexOutOfBoundsException e) {
+            return null;
+        }
+        
+        return child;
+    }
+    
+    public DOMelement getFirstChild() {
+        return this.getChild(0);
+    }
+    
+    public DOMelement getLastChild() {
+        return this.getChild(this.children.size() - 1);
+    }
+    
+    public DOMelement removeChild(DOMelement child) {
+        if (this.children.remove(child)) {
+            this.needInnerUpdate = true;
+        }
+        
+        return this;
+    }
+    
+    public void remove() {
+        this.children.forEach((child) -> {
+            child.setParent(this.parent); // I'm gone - now your parent is my parent
+        });
+        
+        if (this.parent != null) {
+            this.parent.removeChild(this);
+        }
+    }
+    
+    public DOMelement setParent(DOMelement parent) {
+        this.parent = parent;
+        return this;
     }
     
     public DOMelement set(String name, String value) {
@@ -45,17 +121,17 @@ public class DOMelement {
         return this;
     }
     
-    public DOMelement setInnerHtml(String innerHtml) {
-        if (!this.innerHtml.equals(innerHtml)) {
-            this.needUpdate = true;
-        }
-        
-        this.innerHtml = innerHtml;
+    public String getInnerHtml() {
+        return this.innerHtml;
+    }
+    
+    public DOMelement setInnerHtml(String html) {
+        this.innerHtml = html;
         return this;
     }
     
-    public String getInnerHtml() {
-        return this.innerHtml;
+    public boolean isEmpty() {
+        return this.innerHtml.isEmpty();
     }
     
     public String getHtml() {
@@ -79,7 +155,9 @@ public class DOMelement {
             attrs.append(this.attributes.get(key));
             attrs.append("' ");
         }
-        attrs.deleteCharAt(attrs.length()-1);
+        if (attrs.length() != 0) {
+            attrs.deleteCharAt(attrs.length()-1);
+        }
         
         html.append('<');
         html.append(this.tagName);
@@ -88,6 +166,9 @@ public class DOMelement {
         html.append('>');
         
         if (this.hasBody) {
+            if (this.needInnerUpdate) {
+                this.updateInner();
+            }
             html.append(this.innerHtml);
             html.append("</");
             html.append(this.tagName);
@@ -98,4 +179,13 @@ public class DOMelement {
         this.outerHtml = html.toString();
     }
     
+    private void updateInner() {
+        StringBuilder html = new StringBuilder();
+        this.children.forEach((child) -> {
+            html.append(child.getHtml());
+        });
+        
+        this.innerHtml = html.toString();
+    }
+   
 }
