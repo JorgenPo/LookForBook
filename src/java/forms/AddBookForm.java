@@ -16,14 +16,46 @@ public class AddBookForm extends Form {
     
     @Override
     public void init() {
-        this.setId("addBookForm")
-                .setMethod("post");
+        this.setId("add-book")
+                .setTitle("Submit book")
+                .setAction("add");
+        
+        this.setDescription(
+            "Please, enter book information and"
+            + " choose cover photo. Book will be added"
+            + " after moderation!");
         
         // Elements declaration
-        InputFormElement name = new InputFormElement("name");
-        name.set("placeholder", "Enter something!");
+        InputFormElement title = new InputFormElement("title");
+        title.setId("form-title");
         
-        this.add(name);
+        InputFormElement author = new InputFormElement("author");
+        author.setId("form-author");
+        
+        InputFormElement price = new InputFormElement("price");
+        price.setId("form-price");
+        
+        InputFormElement isbn = new InputFormElement("isbn");
+        isbn.setId("form-isbn ");
+        
+        InputFormElement house = new InputFormElement("house");
+        house.setId("form-house");
+        
+        InputFormElement year = new InputFormElement("year");
+        year.setId("form-year")
+            .set("type", "number")
+            .set("min", "0")
+            .set("max", "2016");
+        
+        InputFormElement submit = new InputFormElement("submit");
+        submit.setId("form-submit")
+              .set("type", "submit")
+              .addClass("btn default");
+        
+        this.add(title)
+                .add(author).add(price)
+                .add(isbn).add(house)
+                .add(year).add(submit);
     }
 
     @Override
