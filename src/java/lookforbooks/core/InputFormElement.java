@@ -12,19 +12,28 @@ import java.util.Map;
  * @author jorgen
  */
 public class InputFormElement extends FormElement {
+    private String type;
+    
     public InputFormElement(String name) {
         super("input", name, null);
-        this.set("type", "text");
+        this.type = "text";
+        
+        this.set("type", this.type);
     }
     
     public InputFormElement(String name, String type, Map<String, String> attrs) {
         super("input", name, attrs);
         this.set("type", "text");
     }
-    
-    @Override
-    public boolean validate() {
-        return true;
+
+    public String getType() {
+        return type;
     }
-    
+
+    public InputFormElement setType(String type) {
+        this.type = type;
+        this.set("type", this.type);
+        return this;
+    }
+   
 }

@@ -55,9 +55,24 @@ public class DOMelement {
         element.setParent(this);
         this.children.add(element);
         
-        this.needUpdate = true;
+        this.needInnerUpdate = true;
         
         return this;
+    }
+    
+    public List<DOMelement> find(String tagName) {
+        if (!this.hasBody) {
+            return null; //TODO: throw an error!
+        }
+        
+        ArrayList<DOMelement> results = new ArrayList<>();
+        this.children.forEach((child) -> {
+            if (child.getTagName().equals(tagName)) {
+                results.add(child);
+            }
+        });
+        
+        return results;
     }
     
     public DOMelement append(String tagName) {
@@ -66,10 +81,18 @@ public class DOMelement {
     }
     
     public List<DOMelement> getChildren() {
+        if (!this.hasBody) {
+            return null; //TODO: throw an error!
+        }
+        
         return this.children;
     }
     
     public DOMelement getChild(int index) {
+        if (!this.hasBody) {
+            return this; //TODO: throw an error!
+        }
+        
         DOMelement child;
         try {
             child = this.children.get(index);
@@ -81,14 +104,26 @@ public class DOMelement {
     }
     
     public DOMelement getFirstChild() {
+        if (!this.hasBody) {
+            return this; //TODO: throw an error!
+        }
+        
         return this.getChild(0);
     }
     
     public DOMelement getLastChild() {
+        if (!this.hasBody) {
+            return this; //TODO: throw an error!
+        }
+        
         return this.getChild(this.children.size() - 1);
     }
     
     public DOMelement removeChild(DOMelement child) {
+        if (!this.hasBody) {
+            return this; //TODO: throw an error!
+        }
+        
         if (this.children.remove(child)) {
             this.needInnerUpdate = true;
         }
@@ -112,7 +147,7 @@ public class DOMelement {
     }
     
     public DOMelement set(String name, String value) {
-        if (this.attributes.containsKey(name) && 
+        if (this.attributes.get(name) != null &&
            !this.attributes.get(name).equals(value)) {
             this.needUpdate = true;
         }
@@ -122,15 +157,30 @@ public class DOMelement {
     }
     
     public String getInnerHtml() {
+        if (!this.hasBody) {
+            return null; //TODO: throw an error!
+        }
         return this.innerHtml;
     }
     
     public DOMelement setInnerHtml(String html) {
+        if (!this.hasBody) {
+            return this; //TODO: throw an error!
+        }
+        
         this.innerHtml = html;
         return this;
     }
+
+    public String getTagName() {
+        return tagName;
+    }
     
     public boolean isEmpty() {
+        if (!this.hasBody) {
+            return true;
+        }
+        
         return this.innerHtml.isEmpty();
     }
     

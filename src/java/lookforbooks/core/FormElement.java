@@ -22,23 +22,33 @@ public abstract class FormElement {
     
     protected String id;
     protected String name;
-    protected boolean isVisible;
-    protected List<String> classList;
-    protected Map<String, String> attributes;
     protected String value;
     
+    protected boolean isVisible;
+    protected boolean isRequired; //TRUE by default!
+    
+    protected List<String> classList;
+    protected Map<String, String> attributes;
+
+   
     public FormElement(String tagName, String name, Map<String, String> attrs) {
         this.name = name;
         this.id = null;
-        this.isVisible = true;
-        this.classList = new ArrayList<>();
         this.value = null;
+        
+        this.isVisible = true;
+        this.isRequired = true; 
+        
+        this.classList = new ArrayList<>();
+        
         
         if (attrs == null) {
             this.attributes = new TreeMap<>();
         } else {
             this.attributes = attrs;
         }
+        
+        this.set("required", this.isRequired);
         
         this.dom = new DOMelement(tagName);
         this.domLabel = new DOMelement("label");
@@ -62,11 +72,22 @@ public abstract class FormElement {
         return this;
     }
 
-    public boolean isIsVisible() {
+    public boolean isRequired() {
+        return isRequired;
+    }
+
+    public FormElement setRequired(boolean isRequired) {
+        this.isRequired = isRequired;
+        this.set("required", isRequired);
+        return this;
+    }
+    
+    
+    public boolean isVisible() {
         return isVisible;
     }
 
-    public FormElement setIsVisible(boolean isVisible) {
+    public FormElement setVisible(boolean isVisible) {
         this.isVisible = isVisible;
         return this;
     }
@@ -78,6 +99,11 @@ public abstract class FormElement {
     
     public FormElement set(String name, String value) {
         this.attributes.put(name, value);
+        return this;
+    }
+    
+    public FormElement set(String name, boolean value) {
+        this.attributes.put(name, value ? "true" : "false");
         return this;
     }
     
@@ -123,7 +149,9 @@ public abstract class FormElement {
         return this.classList;
     }
     
-    public abstract boolean validate();
+    public boolean validate() {
+        return true;
+    }
     
     public DOMelement getDom() {
         StringBuilder classes = new StringBuilder();
