@@ -16,6 +16,7 @@ import javax.servlet.ServletContextEvent;
  */
 public class ServletContextListener implements javax.servlet.ServletContextListener {
     private static final String HOST = "http://localhost:8080";
+    private static final String APP = HOST + "/LookForBook-war";
     private static final String MODULES = "LookForBook-war/WEB-INF/modules";
     
     @Override
@@ -23,6 +24,7 @@ public class ServletContextListener implements javax.servlet.ServletContextListe
         ServletContext context = sce.getServletContext();
         context.setAttribute("HOST", HOST);
         context.setAttribute("MODULES", MODULES);
+        context.setAttribute("APP", APP);
         
         Integer year = Calendar.getInstance().get(Calendar.YEAR);
         context.setAttribute("YEAR", year.toString());

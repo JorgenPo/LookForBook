@@ -62,4 +62,14 @@ public class TextAreaFormElement extends FormElement {
         this.dom.setInnerHtml(text);
     }
     
+    @Override
+    public String getValue() {
+        return this.getText();
+    }
+    
+    @Override
+    public TextAreaFormElement setValue(String val) {
+        this.setText(val);
+        return this;
+    }
 }

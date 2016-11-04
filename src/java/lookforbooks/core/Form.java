@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import javax.servlet.http.HttpServletRequest;
 import lookforbooks.core.utils.DOMelement;
+import lookforbooks.core.utils.HttpUtils;
 
 /**
  *
@@ -89,11 +91,11 @@ public abstract class Form {
         return this.elements;
     }
     
-    public List<String> getValues() {
-        ArrayList<String> values = new ArrayList<>();
+    public TreeMap<String, String> getValues() {
+        TreeMap<String, String> values = new TreeMap<>();
          
         this.elements.forEach((elem) -> {
-            values.add((String) elem.getValue());
+            values.put(elem.getName(), elem.getValue());
         });
         
         return values;
@@ -163,7 +165,14 @@ public abstract class Form {
         return this;
     }
     
-    
+    public boolean hasField(String name) {
+        for (FormElement elem : this.elements) {
+            if (elem.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
     
     public boolean validate() {
         boolean isValid = true;
@@ -216,5 +225,17 @@ public abstract class Form {
                 .set("class", classes.toString());
         
         return this.dom.getHtml();
+    }
+    
+    public Map<String, String> fill(HttpServletRequest request) {
+        Map<String, String> params = HttpUtils.parseRequestParams(request);
+        
+        for (String key : params.keySet()) {
+            if (this.hasField(key)) {
+                this.setValue(key, params.get(key));
+            }
+        }
+        
+        return params;
     }
 }

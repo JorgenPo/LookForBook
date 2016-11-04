@@ -27,6 +27,7 @@ public class SelectFormElement extends FormElement {
     public SelectFormElement addOption(String text) {
         DOMelement option = new DOMelement("option");
         option.setInnerHtml(text);
+        option.set("value", this.name + "-" + (this.options.size()));
         
         this.options.add(option);
         this.dom.append(option);
@@ -42,6 +43,21 @@ public class SelectFormElement extends FormElement {
         });
         
         return o;
+    }
+    
+    // Intersect parent's method
+    @Override
+    public String getValue() {
+        return this.getSelected();
+    }
+    
+    @Override
+    public SelectFormElement setValue(String val) {
+        String temp[] = val.split("-");
+        val = temp[temp.length - 1];
+        
+        this.select(Integer.parseInt(val));
+        return this;
     }
     
     public SelectFormElement removeOption(String text) {

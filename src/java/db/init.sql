@@ -50,7 +50,7 @@ CREATE TABLE Book (
     book_desc varchar(1000) not null default '',
     book_price int not null default '0',
     
-    book_isbn varchar(13) not null default '0000000000000',
+    book_isbn varchar(20) not null default '000-0-000-00000-0',
     book_author varchar(50) not null default 'unknown',
     book_genre varchar(20) not null default 'Misc',
     book_year integer(4) not null default '0',

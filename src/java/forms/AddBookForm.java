@@ -5,10 +5,14 @@
  */
 package forms;
 
+import buisness.Book;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import lookforbooks.core.Form;
 import lookforbooks.core.InputFormElement;
 import lookforbooks.core.SelectFormElement;
 import lookforbooks.core.TextAreaFormElement;
+import lookforbooks.core.utils.HttpUtils;
 
 /**
  *
@@ -50,13 +54,13 @@ public class AddBookForm extends Form {
         
         SelectFormElement genre = new SelectFormElement("genre");
         genre.addOption("Classic")
-                .addOption("Psyhology")
                 .addOption("Detective")
-                .addOption("Drama")
                 .addOption("Farytail")
                 .addOption("Adventure")
                 .addOption("Sci-fi")
                 .addOption("Fantasy")
+                .addOption("Novel")
+                .addOption("Professional")
                 .select(0)
                 .setId("form-genre")
                 .setLabel("Genre");
@@ -78,6 +82,11 @@ public class AddBookForm extends Form {
                 .setId("form-language")
                 .setLabel("Original language");
         
+        InputFormElement stock = new InputFormElement("stock");
+        stock.setType("number")
+                .setId("form-stock")
+                .setLabel("In stock");
+        
         InputFormElement submit = new InputFormElement("submit");
         submit.setType("submit")
                 .setId("form-submit")
@@ -89,12 +98,28 @@ public class AddBookForm extends Form {
         this.add(title).add(author)
                 .add(description).add(price)
                 .add(isbn).add(genre).add(language)
-                .add(house).add(year).add(submit);
+                .add(house).add(year).add(stock).add(submit);
     }
 
-    @Override
-    public boolean validate() {
-       return true; // TODO: validation
+    public Book constructBook() {
+        Book book = new Book();
+        Map<String, String> values = this.getValues();
+        
+        try {
+            book.setAuthor(values.get("author"));
+            book.setDesc(values.get("description"));
+            book.setGenre(values.get("genre"));
+            book.setHouse(values.get("author"));
+            book.setIsbn(values.get("isbn"));
+            book.setLang(values.get("language"));
+            book.setPrice(Integer.parseInt(values.get("price")));
+            book.setStock(Integer.parseInt(values.get("stock")));
+            book.setTitle(values.get("title"));
+            book.setYear(Integer.parseInt(values.get("year")));
+        } catch(NumberFormatException e) {
+            return null;
+        }
+        
+        return book;
     }
-
 }

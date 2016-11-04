@@ -16,7 +16,7 @@
     <property name="price" type="int">
       <column name="book_price" not-null="true"/>
     </property>
-    <property name="isbn" type="int">
+    <property name="isbn" type="string">
       <column name="book_isbn" not-null="true"/>
     </property>
     <property name="author" type="string">

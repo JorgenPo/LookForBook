@@ -119,4 +119,22 @@ public class BooksDB {
         return count;
     }
     
+    public boolean submitBook(Book book) {
+        boolean success = true;
+        
+        Transaction t = null;
+        try {
+            t = session.beginTransaction();
+            session.save(book);
+            t.commit();
+        } catch(Exception e) {
+             if (t != null) {
+                t.rollback();
+            }
+            e.printStackTrace();
+            success = false;
+        }
+        
+        return success;
+    }
 }

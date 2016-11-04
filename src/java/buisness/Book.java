@@ -14,7 +14,7 @@ public class Book  implements java.io.Serializable {
      private String title;
      private String desc;
      private int price;
-     private int isbn;
+     private String isbn;
      private String author;
      private String genre;
      private int year;
@@ -25,7 +25,7 @@ public class Book  implements java.io.Serializable {
     public Book() {
     }
 
-    public Book(String bookCode, String bookDesc, int bookPrice, int bookIsbn, String bookAuthor, String bookGenre, int bookYear, String bookLang, String bookHouse, int stock) {
+    public Book(String bookCode, String bookDesc, int bookPrice, String bookIsbn, String bookAuthor, String bookGenre, int bookYear, String bookLang, String bookHouse, int stock) {
        this.desc = bookDesc;
        this.price = bookPrice;
        this.isbn = bookIsbn;
@@ -67,11 +67,11 @@ public class Book  implements java.io.Serializable {
     public void setPrice(int bookPrice) {
         this.price = bookPrice;
     }
-    public int getIsbn() {
+    public String getIsbn() {
         return this.isbn;
     }
     
-    public void setIsbn(int bookIsbn) {
+    public void setIsbn(String bookIsbn) {
         this.isbn = bookIsbn;
     }
     public String getAuthor() {
