@@ -18,6 +18,7 @@
         <link href="styles/auth.css" rel="stylesheet">
         <link href="styles/footer.css" rel="stylesheet">
         
+        <script type="text/javascript" src="scripts/main.js"></script>
         <script type="text/javascript" src="scripts/item.js"></script>
     </head>
     <body>
@@ -89,7 +90,6 @@
             </section>
            
             <aside class="right-block pull-right">
-                <%@ include file="/WEB-INF/modules/language.jspf" %>
                 <div class="buy-info">
                     <p class="item-price">${item.price}${tr.translate("*Curency*")}</p>
                     <a class="item-price-notbest hint">${tr.translate("Know better offer?")}</a>

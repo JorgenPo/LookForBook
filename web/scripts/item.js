@@ -4,12 +4,6 @@
  * and open the template in the editor.
  */
 
-function changeLanguage(sel) {
-    var url = sel.options[sel.selectedIndex].value;
-    
-    document.location.href = url;
-}
-
 window.onload = function() {
     Item.loadDOM();
     Item.setDefault(defaultPage);

@@ -18,6 +18,8 @@
         <link href="<c:url value='/styles/auth.css'/>" rel="stylesheet">
         <link href="<c:url value='/styles/product_list.css'/>" rel="stylesheet">
         <link href="<c:url value='/styles/footer.css'/>" rel="stylesheet">
+        
+        <script type="text/javascript" src="scripts/main.js"></script>
     </head>
     <body>
         <header><%@ include file="/WEB-INF/modules/header.jspf" %></header>

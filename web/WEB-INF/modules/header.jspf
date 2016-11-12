@@ -1,13 +1,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <nav class="menu horizontal">
-    <div class="logo pull-left">
+    
+    <div class="nav-top"></div>
+    <div class="nav-bottom"></div>
+    
+<!--    <div class="logo pull-left">
         <img class="logo-image" src="<c:url value='/getImage?image=logo.png'/>" alt="Logo"> 
         <span class="logo-label"><a href="/LookForBook-war/">${tr.translate("Look For Book")}</a></span>
     </div>
     <%@ include file="search.jspf" %>
-   
-    <div class="pull-right">
+    
+    <div class="pull-right">  
         <%@ include file="auth.jspf" %>
-    <div>
+        <%@ include file="language.jspf" %>
+    <div>-->
+        
+    
 </nav>

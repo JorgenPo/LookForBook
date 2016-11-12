@@ -1,11 +1,10 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
 <div id="language" style="display: inline-block;">
-    <label for="choose-language">${tr.translate("Choose the language")}:</label>
-    <select id="choose-language" onchange="changeLanguage(this)">
-        <option value="" selected></option>
-        <option value="item?id=${item.id}&lang=ru">Русский</option>
-        <option value="item?id=${item.id}&lang=en">English</option>
-        <option value="item?id=${item.id}&lang=de">Deautsch</option>
+    <select id="choose-language" onchange="Look.changeLanguage(this)">
+        <option value="" selected>${tr.translate("Choose the language")}</option>
+        <option value="${APP}/?lang=ru">Русский</option>
+        <option value="${APP}/?lang=en">English</option>
+        <option value="${APP}/?lang=de">Deutsch</option>
     </select>
 <div>

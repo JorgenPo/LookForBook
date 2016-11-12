@@ -13,38 +13,7 @@
                 <tr>
                 </c:if>
                 <td>
-                    <div class="product-item">
-                       
-                        <img class="product-image"
-                             src="getImage?image=/items/${product.id}.jpg" 
-                             width="${productImgWidth}"
-                             height="${productImgHeight}"
-                             alt="<c:out value='${product.title}' default='${tr.translate("No title provided")}' />" />
-                        
-                        <section class="product-info">
-                            <h2 class="product-title">
-                                <a href="item?id=${product.id}">
-                                    <c:out value="${product.title}" default='${tr.translate("No title provided")}' /><br>
-                                    <span class="smaller"><c:out value="${product.author}" /></span>
-                                </a>
-                            </h2>
-                                
-                            <p class="product-price">
-                                <c:out value="${product.price}" />
-                                ${tr.translate("*Curency*")}
-                            </p>
-                            <br>
-                            <p class="product-stock">
-                                <span class="hint">
-                                    ${tr.translate("Items on stock")}
-                                </span>: <c:out value="${product.stock}" />
-                            </p>
-                            <br>
-                            
-                            <button class="product-add btn default">${tr.translate("Add item to cart")}</button>
-                        </section>
-                       
-                    </div>
+                    <%@ include file="/WEB-INF/modules/product.jspf" %>
                 </td>
             </c:forEach>
         </tr>

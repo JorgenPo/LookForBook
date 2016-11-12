@@ -10,7 +10,7 @@ and open the template in the editor.
 
 header {
     width: 100%;
-    height: auto;
+    height: 80px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     background-color: #CCF7F7;
     margin: 0;
@@ -53,5 +53,3 @@ header {
     font-size: 1.3em;
     font-weight: bold;
 }
-
-

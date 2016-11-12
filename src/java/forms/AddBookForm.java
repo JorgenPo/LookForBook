@@ -7,12 +7,10 @@ package forms;
 
 import buisness.Book;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import lookforbooks.core.Form;
 import lookforbooks.core.InputFormElement;
 import lookforbooks.core.SelectFormElement;
 import lookforbooks.core.TextAreaFormElement;
-import lookforbooks.core.utils.HttpUtils;
 
 /**
  *
@@ -93,8 +91,6 @@ public class AddBookForm extends Form {
                 .setValue("Add book")
                 .addClass("btn default");
                 
-                
-        
         this.add(title).add(author)
                 .add(description).add(price)
                 .add(isbn).add(genre).add(language)
