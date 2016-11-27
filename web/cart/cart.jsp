@@ -23,9 +23,9 @@
     <body>
         <header><%@ include file="/WEB-INF/modules/header.jspf" %></header>
         <section class="main-content">
-            <c:choose>
-                <c:when test="${!cart.isEmpty()}">
-                <table>
+            <div id="cart">
+            <c:if test="${!cart.isEmpty()}">
+                <table id="cart-table">
                     <caption>
                         Cart items
                     </caption>
@@ -35,6 +35,7 @@
                         <col id="description-col" />
                         <col id="price-col" />
                         <col id="count-col" />
+                        <col id='delete-col' />
                         <col id="total-col" />
                     </colgroup>
                     
@@ -44,11 +45,12 @@
                             <th scope="col">Item description</th>
                             <th scope="col">Item price</th>
                             <th scope="col">Item count</th>
+                            <th scope="col"></th>
                             <th scope="col">Total</th>
                         </tr>
                     </thead>
                     
-                    <tbody>
+                    <tbody id="cart-items">
                         <c:forEach var="product" items="${cart.getItems()}">
                             <c:set var="count" value="${cart.getItemCount(product)}" />
                             <%@ include file="/WEB-INF/modules/cart_item.jspf" %>
@@ -62,12 +64,16 @@
                     </h3>
                     <button class="btn default">Continue order!</button>
                 </section>
-                </c:when>
-                <c:otherwise>
-                    <c:out value="Cart is empty"></c:out>
-                </c:otherwise>
-            </c:choose>    
+            </div>
+            </c:if>
+            <p id="cart-empty" style="display: none;"><c:out value="Cart is empty"></c:out></p>
         </section>
         <footer><%@ include file="/WEB-INF/modules/footer.jspf" %></footer>
     </body>
+    
+    <script>
+        if (document.getElementById("cart-table") === null) {
+            document.getElementById("cart-empty").style.display = "block";
+        }
+    </script>
 </html>

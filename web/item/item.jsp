@@ -117,7 +117,10 @@
                     <p class="item-ship-info">
                         ${tr.translate("Shipping to your country is available! Shipping by RuPostal service - will be in 14 - 60 days. Buyer protection enabled!")}
                     </p>
-                    <button id="add-item" class="original">${tr.translate("Add item to cart")}</button>
+                    <button id="add-item" class="original" bookId="${item.id}"
+                            onclick="Look.addBook(this)">
+                        ${tr.translate("Add item to cart")}
+                    </button>
                 </div>
             </aside>
         </div>

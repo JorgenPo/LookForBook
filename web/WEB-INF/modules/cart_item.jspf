@@ -1,5 +1,6 @@
 <%-- any content can be specified here e.g.: --%>
-<tr class="cart-item">
+<tr id="cart-item-${product.id}" class="cart-item">
+    
     <td>
         <img class="product-image"
          src="getImage?image=/items/${product.id}.jpg" 
@@ -17,7 +18,14 @@
         <c:out value="${product.price}" />${tr.translate("*Curency*")}
     </td>
     <td>
-        <input type="number" value="${count}" min="0" max="${product.stock}">
+        <input type="number" value="${count}" 
+               onchange="Look.changeBookVal(${product.id})" 
+               min="0" max="${product.stock}">
+    </td>
+    <td>
+        <a href='#' onclick="Look.removeBook(${product.id})"> 
+            <span class='icon icon-cross' id='delete-item'> </span>
+        </a>
     </td>
     <td>
         <span id="item-amount"><c:out value="${count * product.price}"></c:out></span>

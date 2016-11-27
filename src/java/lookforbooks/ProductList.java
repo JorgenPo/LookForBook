@@ -10,6 +10,7 @@ import buisness.Cart;
 import db.BooksDB;
 import forms.AddBookForm;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -17,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import static javax.servlet.http.HttpServletResponse.SC_OK;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -108,12 +110,16 @@ public class ProductList extends HttpServlet {
         
         Cart cart = (Cart) session.getAttribute("cart");
         
-        if (cart != null) {
-            if (cart.isEmpty()) {
-                List<Book> books = db.getBooksList(0, -1);
-                cart.addItem(books.get(0));
-                cart.addItem(books.get(1));
-            }
+        String id;
+        Enumeration<String> st = request.getParameterNames();
+        if ((id = request.getParameter("add")) != null) {
+            cart.addItem(db.getBookById(Integer.parseInt(id)));
+            response.setStatus(SC_OK);
+            return;
+        } else if ((id = request.getParameter("remove")) != null){
+            cart.deleteItem(db.getBookById(Integer.parseInt(id)));
+            response.setStatus(SC_OK);
+            return;
         }
         
         this.getServletContext()

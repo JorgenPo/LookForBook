@@ -32,14 +32,14 @@ public class RequestListener implements ServletRequestListener {
     
     private void manageLanguage(ServletRequest request) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        XCookies cookies = new XCookies(httpRequest.getCookies());
-        
         Translator tr = Translator.getInstance();
+        
+        XCookies cookies = new XCookies(httpRequest.getCookies());
         
         String lang = cookies.get("lang");
         if (lang != null && !lang.equals(tr.getLocale())) {
             Translator.setLocale(new Locale(lang));
-        }
+        } 
          
         httpRequest.setAttribute("tr", tr);
     }

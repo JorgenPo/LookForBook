@@ -23,7 +23,7 @@ public class BooksDB {
     public BooksDB() {
         this.session = HibernateUtil
                 .getSessionFactory()
-                .getCurrentSession();
+                .openSession();
     }
     
     public List getBooksList(int from, int to) {
@@ -79,6 +79,8 @@ public class BooksDB {
     
     public Book getBookById(Integer id) {
         Book book = null;
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
         
         Transaction t = null;
         try {

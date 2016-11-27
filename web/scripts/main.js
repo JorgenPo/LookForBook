@@ -20,8 +20,14 @@ window.onload = function () {
 };
 
 var Look = {
+    APP: "/LookForBook-war",
+    
     loadDOM: function () {
         this.manageLists();
+        this.cart = document.getElementById("cart-items");
+        this.cartWrap = document.getElementById("cart");
+        this.cartEmpty = document.getElementById("cart-empty");
+        this.cartCounter = document.querySelector("span.cart-count");
     },
 
     changeLanguage: function (sel) {
@@ -61,5 +67,43 @@ var Look = {
                 }, 250);
             };
         });
+    },
+    
+    addBook(book) {
+        var bookid = book.getAttribute("bookId");
+
+        var req = new XMLHttpRequest();
+        req.open("POST", this.APP + "/cart?add=" + bookid, true);
+        
+        var self = this;
+        req.onreadystatechange = function() {
+          if (req.readyState === 4 && req.status === 200) {
+              self.cartCounter.innerHTML = parseInt(self.cartCounter.innerHTML) + 1;
+              alert("Book has been added to cart!");
+          }  
+        };
+        
+        req.send();
+    },
+    
+    removeBook(bookid) {
+        var req = new XMLHttpRequest();
+        req.open("POST", this.APP + "/cart?remove=" + bookid, true);
+        
+        var self = this;
+        req.onreadystatechange = function() {
+          if (req.readyState === 4 && req.status === 200) {
+              var row = document.getElementById("cart-item-" + bookid);
+              if (row) {
+                  row.remove();
+                  if (self.cart.children.length === 0) {
+                      self.cartWrap.remove();
+                      self.cartEmpty.style.display = "block";
+                  }
+              }
+          }  
+        };
+        
+        req.send();
     }
 };

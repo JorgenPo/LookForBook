@@ -31,7 +31,13 @@ tr:nth-of-type(even):last-of-type { border-top: 1px solid gray;}
     max-height: 300px;
 }
 
+.cart-item {
+    position: relative;
+}
 
+#delete-item {
+    color: red;
+}
 
 #item-amount {
     font-weight: bold;

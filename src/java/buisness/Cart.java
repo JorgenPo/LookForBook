@@ -5,52 +5,92 @@
  */
 package buisness;
 
+import db.BooksDB;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
  * @author jorgen
  */
 public class Cart {
-    private ArrayList<Book> books;
-    private Map<Book, Integer> booksCount;
+    private Invoice invoice;
     
     public Cart() {
-        books = new ArrayList<>();
-        booksCount = new HashMap<>();
+        invoice = new Invoice();
     }
     
     public String getItemsCount() {
-        return Integer.toString(books.size());
+        int total = 0;
+        
+        for (LineItem item : invoice.getLineItems()) {
+            total += item.getQuantity();
+        }
+        
+        return String.valueOf(total);
     }
     
     public ArrayList<Book> getItems() {
-        return books;
+        ArrayList<Book> list = new ArrayList<>();
+        
+        BooksDB db = new BooksDB();
+        for (LineItem item : invoice.getLineItems()) {
+            list.add(db.getBookById(item.getBookId()));
+        }
+        
+        return list;
     }
     
     public Integer getItemCount(Book book) {
-        return booksCount.get(book);
+        
+        for (LineItem line : invoice.getLineItems()) {
+            if (line.getBookId() == book.getId()) {
+                return line.getQuantity();
+            }
+        }
+        
+        return 0;
     }
     
     public Cart addItem (Book book) {
-        if (books.contains(book)) {
-            booksCount.put(book, booksCount.get(book) + 1);
-        } else {
-            books.add(book);
-            booksCount.put(book, 1);
+        return addItem(book, 1);
+    }
+    
+    public Cart addItem (Book book, int q) {
+        for (LineItem line : invoice.getLineItems()) {
+            if (line.getBookId() == book.getId()) {
+                line.setQuantity(line.getQuantity() + q);
+                return this;
+            }
         }
+        
+        LineItem item = new LineItem(invoice, book.getId(), q);
+        invoice.getLineItems().add(item);
         
         return this;
     }
     
     public Cart removeItem (Book book) {
-        if (books.contains(book)) {
-            if (booksCount.get(book) == 1) {
-                books.remove(book);
+        for (LineItem line : invoice.getLineItems()) {
+            if (line.getBookId() == book.getId()) {
+                line.setQuantity(line.getQuantity() - 1);
+                
+                if (line.getQuantity() == 0) {
+                    invoice.getLineItems().remove(line);
+                }
+                
+                break;
             }
-            booksCount.put(book, booksCount.get(book) - 1);
+        }
+        
+        return this;
+    }
+   
+    public Cart deleteItem (Book book) {
+        for (LineItem line : invoice.getLineItems()) {
+            if (line.getBookId() == book.getId()) {
+                invoice.getLineItems().remove(line); 
+                break;
+            }
         }
         
         return this;
@@ -61,13 +101,16 @@ public class Cart {
     }
     
     public Boolean isEmpty() {
-        return books.isEmpty();
+        return invoice.getLineItems().isEmpty();
     }
     
     public Integer getTotalPrice() {
         Integer total = 0;
-        for (Book book : booksCount.keySet()) {
-            total += book.getPrice() * booksCount.get(book);
+        
+
+        // SLOWLY!!!
+        for (Book b : this.getItems()) {
+            total += this.getItemCount(b) * b.getPrice();
         }
         
         return total;

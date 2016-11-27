@@ -14,7 +14,7 @@
 </style>
 
 <select id="language" onchange="Look.changeLanguage(this)">
-    <option value="ru_ru">Русский</option>
+    <option value="ru">Русский</option>
     <option value="en_gb">English</option>
     <option value="de_de">Deutsch</option><span class="icon icon-globe"></span>
 </select> 

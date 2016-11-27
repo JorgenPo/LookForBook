@@ -27,7 +27,10 @@
         </p>
         <br>
 
-        <button class="product-add btn default">${tr.translate("Add item to cart")}</button>
+        <button class="product-add btn default" bookId="${product.id}"
+                onclick="Look.addBook(this)">
+            ${tr.translate("Add item to cart")}
+        </button>
     </section>
 
 </div>
