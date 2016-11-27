@@ -9,17 +9,28 @@ and open the template in the editor.
 */
 
 header {
+    position: relative;
+    left: 0;
+    top: 0;
     width: 100%;
-    height: 80px;
+    min-height: 80px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     background-color: #CCF7F7;
     margin: 0;
     padding: 10px 5px;
+    padding-bottom: 4px;
     text-align: center;
 }
 
 .menu.horizontal{
-    width: 90%;
+    width: 95%;
+    height: 100%;
+}
+
+.menu .nav-top,
+.menu .nav-bottom {
+    width: 100%;
+    height: 50%;
 }
 
 .menu ul {
@@ -52,4 +63,39 @@ header {
     display: inline-block;
     font-size: 1.3em;
     font-weight: bold;
+}
+
+.nav-settings {
+}
+
+.nav-settings {
+    padding: 10px 0;
+}
+.nav-settings #language {
+    vertical-align: middle;
+}
+
+.user-menu > li {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+ul.user-menu > li {
+    margin-right: 18px;
+}
+
+ul.user-menu > li > a,
+a.catalogue-menu {
+    color: rgb(0, 154, 154);
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.catalogue-menu {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.main-menu > li {
+    
 }

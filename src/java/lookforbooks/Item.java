@@ -51,19 +51,6 @@ public class Item extends HttpServlet {
 
         request.setAttribute("item", book);
         request.setAttribute("defaultPage", config.getInitParameter("defaultPage"));
-        
-        // Set up Translator if need
-        Translator tr = (Translator) session.getAttribute("tr");
-        String lang;
-        if ((lang = (String) request.getParameter("lang")) != null) {
-            tr = new Translator(new Locale(lang));
-            session.setAttribute("tr", tr);
-        }
-        
-        if (tr == null) {
-            tr = new Translator(request.getLocale());
-            session.setAttribute("tr", tr);
-        }
        
         this.getServletContext()
                 .getRequestDispatcher("/item/item.jsp")

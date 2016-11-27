@@ -17,15 +17,32 @@ import java.util.ResourceBundle;
  * @author jorgen october 2016(c)
  */
 public class Translator {
-    ResourceBundle resources = null;
+    ResourceBundle resources;
     
-    public Translator(Locale locale) {
-        System.out.println(locale);
+    static Translator instance = null;
+    
+    public static Translator getInstance() {
+        if (instance == null) {
+            instance = new Translator();
+            Translator.setLocale(Locale.getDefault());
+        }
+        
+        return instance;
+    }
+    
+    public static void setLocale(Locale locale) {
         ResourceBundle.clearCache();
-        resources = ResourceBundle.getBundle("locale.Localization", locale);
+        if(instance == null) {
+            getInstance();
+        }
+        instance.resources = ResourceBundle.getBundle("locale.Localization", locale);
     }
     
     public String translate(String string) {
         return resources.getString(string);
+    }
+    
+    public String getLocale() {
+        return resources.getLocale().getLanguage();
     }
 }

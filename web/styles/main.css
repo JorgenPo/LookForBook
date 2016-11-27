@@ -1,3 +1,10 @@
+/* Import icons */
+@import url("../fico/css/icons.css") screen;
+
+.icon-down {
+    font-size: 0.7em;
+}
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -218,3 +225,22 @@ label {
     color: black;
 }
 
+.list-body {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: none;
+    background: #CCF7F7;
+}
+
+td, th {
+    padding: 10px;
+}
+
+thead {
+    background: #f1f1f1;
+    font-weight: bold;
+}
+
+caption {
+    font-size: 2em;
+    margin-bottom: 12px;
+}

@@ -10,7 +10,6 @@ and open the template in the editor.
 
 .search {
     display: inline-block;
-    height: 37px;
 }
 
 .search > form {
@@ -22,7 +21,7 @@ and open the template in the editor.
 
 .search input {
     display: inline-block;
-    width: 250px;
+    width: 400px;
     background: white;
     margin-top: 0;
 }

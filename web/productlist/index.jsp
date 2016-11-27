@@ -15,7 +15,6 @@
         <link href="<c:url value='/styles/index.css'/>" rel="stylesheet">
         <link href="<c:url value='/styles/header.css'/>" rel="stylesheet">
         <link href="<c:url value='/styles/search.css'/>" rel="stylesheet">
-        <link href="<c:url value='/styles/auth.css'/>" rel="stylesheet">
         <link href="<c:url value='/styles/product_list.css'/>" rel="stylesheet">
         <link href="<c:url value='/styles/footer.css'/>" rel="stylesheet">
         

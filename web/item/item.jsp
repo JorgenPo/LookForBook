@@ -15,7 +15,6 @@
         <link href="styles/item.css" rel="stylesheet">
         <link href="styles/header.css" rel="stylesheet">
         <link href="styles/search.css" rel="stylesheet">
-        <link href="styles/auth.css" rel="stylesheet">
         <link href="styles/footer.css" rel="stylesheet">
         
         <script type="text/javascript" src="scripts/main.js"></script>

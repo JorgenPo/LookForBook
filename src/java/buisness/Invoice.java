@@ -30,6 +30,7 @@ public class Invoice  implements java.io.Serializable {
         this.invoiceDate = invoiceDate;
         this.totalAmount = totalAmount;
     }
+    
     public Invoice(User user, Date invoiceDate, short totalAmount, String isProcessed, String delivery, Integer deliveryCost, Set<LineItem> lineItems) {
        this.user = user;
        this.invoiceDate = invoiceDate;
