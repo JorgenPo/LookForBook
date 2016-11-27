@@ -8,6 +8,7 @@ package listeners;
 import java.util.Calendar;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
+import lookforbooks.Translator;
 
 /**
  * Web application lifecycle listener.

@@ -6,11 +6,11 @@
 package lookforbooks;
 
 import buisness.Book;
+import buisness.Cart;
 import db.BooksDB;
 import forms.AddBookForm;
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -101,6 +101,26 @@ public class ProductList extends HttpServlet {
         }
     }
     
+     private void cartAction (HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        BooksDB db = new BooksDB();
+        
+        Cart cart = (Cart) session.getAttribute("cart");
+        
+        if (cart != null) {
+            if (cart.isEmpty()) {
+                List<Book> books = db.getBooksList(0, -1);
+                cart.addItem(books.get(0));
+                cart.addItem(books.get(1));
+            }
+        }
+        
+        this.getServletContext()
+                   .getRequestDispatcher("/cart/cart.jsp")
+                   .forward(request, response);
+     }
+    
     
     private void doRoute(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
@@ -108,6 +128,8 @@ public class ProductList extends HttpServlet {
             
             if (action.endsWith("/books/add")) {
                 this.addAction(request, response);
+            } else if (action.endsWith("/cart")) {
+                this.cartAction(request, response);
             } else {
                 this.indexAction(request, response);
             }
@@ -118,19 +140,6 @@ public class ProductList extends HttpServlet {
         ServletContext context = this.getServletContext();
         ServletConfig config  = this.getServletConfig();
         HttpSession session = request.getSession();
-        
-        // Set up Translator if need
-        Translator tr = (Translator) session.getAttribute("tr");
-        String lang;
-        if ((lang = (String) request.getParameter("lang")) != null) {
-            tr = new Translator(new Locale(lang));
-            session.setAttribute("tr", tr);
-        }
-        
-        if (tr == null) {
-            tr = new Translator(request.getLocale());
-            session.setAttribute("tr", tr);
-        }
         
         this.doRoute(request, response);
     }

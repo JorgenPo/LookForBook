@@ -26,7 +26,7 @@ public class Localization_ru_RU extends ListResourceBundle {
             {"enter book name or author", "введите название книги или автора"},
             {"Look For Book", "Look For Book"},
             {"No search results by query", "Поиск не дал результата"},
-            {"No items in database", "No items in database )"},
+            {"No items in database", "База данных предметов пуста:("},
             {"Confused by that range? Just", "Озадачены выбором? Просто"},
             {"Find a book", "Найти книгу"},
             {"Hello, guest!", "Привет, гость!"},

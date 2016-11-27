@@ -8,6 +8,14 @@
         <description>ServletContextListener</description>
         <listener-class>listeners.ServletContextListener</listener-class>
     </listener>
+    <listener>
+        <description>SessionListener</description>
+        <listener-class>listeners.SessionListener</listener-class>
+    </listener>
+    <listener>
+        <description>RequestListener</description>
+        <listener-class>listeners.RequestListener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>ProductList</servlet-name>
         <servlet-class>lookforbooks.ProductList</servlet-class>
@@ -45,6 +53,10 @@
         <url-pattern>/books/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ProductList</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetImage</servlet-name>
         <url-pattern>/getImage</url-pattern>
     </servlet-mapping>
@@ -52,6 +64,7 @@
         <servlet-name>Item</servlet-name>
         <url-pattern>/item</url-pattern>
     </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30
