@@ -4,20 +4,62 @@
  * and open the template in the editor.
  */
 
-window.onload = function() {
+var Helper = {
+    setCookie: function(name, value, expires, path, domain, secure) {
+        document.cookie = name + "=" + escape(value) +
+                ((expires) ? "; expires=" + expires : "") +
+                ((path) ? "; path=" + path : "") +
+                ((domain) ? "; domain=" + domain : "") +
+                ((secure) ? "; secure" : "");
+    }
+};
+
+window.onload = function () {
     Look.loadDOM();
     console.log("LOADED");
 };
 
 var Look = {
-    loadDOM: function() {
-        
+    loadDOM: function () {
+        this.manageLists();
+    },
+
+    changeLanguage: function (sel) {
+        var lang = sel.options[sel.selectedIndex].value;
+
+        Helper.setCookie("lang", lang);
+        window.location.reload(true);
     },
     
-    changeLanguage: function(sel) {
-        var url = sel.options[sel.selectedIndex].value;
+    manageLists: function() {
+        var toogles = document.querySelectorAll(".list-toggle");
+        var lists = {};
         
-        X
-        document.location.href = url;
-    }   
-}
+        console.log(toogles);
+        toogles.forEach(function(toogle) {
+            console.dir(toogle);
+            lists[toogle] = document.getElementById(toogle.getAttribute("list"));
+            
+            var display, el;
+            var timer;
+            toogle.onmouseover = function() {
+                clearTimeout(timer);
+                el = lists[toogle];
+                el.style.display = "block";
+            };
+            toogle.onmouseout = function() {
+                timer = setTimeout(function() {
+                   el.style.display = "none"; 
+                }, 250);
+            };
+            lists[toogle].onmouseover = function() {
+                clearTimeout(timer);
+            };
+            lists[toogle].onmouseout = function() {
+                timer = setTimeout(function() {
+                   el.style.display = "none"; 
+                }, 250);
+            };
+        });
+    }
+};

@@ -1,0 +1,25 @@
+<%-- any content can be specified here e.g.: --%>
+<tr class="cart-item">
+    <td>
+        <img class="product-image"
+         src="getImage?image=/items/${product.id}.jpg" 
+         alt="<c:out value='${product.title}' default='${tr.translate("No title provided")}' />" />
+        
+        <a href="item?id=${product.id}">
+            <c:out value="${product.title}" default='${tr.translate("No title provided")}' />
+            <span class="smaller"><c:out value="${product.author}" /></span>
+        </a>
+    </td>
+    <td>
+        <c:out value="${product.desc}"  />
+    </td>
+    <td>
+        <c:out value="${product.price}" />${tr.translate("*Curency*")}
+    </td>
+    <td>
+        <input type="number" value="${count}" min="0" max="${product.stock}">
+    </td>
+    <td>
+        <span id="item-amount"><c:out value="${count * product.price}"></c:out></span>
+    </td>
+</tr>
