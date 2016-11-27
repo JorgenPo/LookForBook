@@ -2,19 +2,25 @@
 
 <nav class="menu horizontal">
     
-    <div class="nav-top"></div>
-    <div class="nav-bottom"></div>
-    
-<!--    <div class="logo pull-left">
-        <img class="logo-image" src="<c:url value='/getImage?image=logo.png'/>" alt="Logo"> 
-        <span class="logo-label"><a href="/LookForBook-war/">${tr.translate("Look For Book")}</a></span>
+    <div class="nav-top">
+        <div class="logo pull-left">
+            <img class="logo-image" src="<c:url value='/getImage?image=logo.png'/>" alt="Logo"> 
+            <span class="logo-label"><a href="/LookForBook-war/">${tr.translate("Look For Book")}</a></span>
+        </div>
+        <%@ include file="search.jspf" %>
+        <div class="nav-settings pull-right">
+            <div class="wrapper">
+                <%@ include file="language.jspf" %>
+            </div>
+        </div>
     </div>
-    <%@ include file="search.jspf" %>
-    
-    <div class="pull-right">  
-        <%@ include file="auth.jspf" %>
-        <%@ include file="language.jspf" %>
-    <div>-->
-        
-    
+    <div class="nav-bottom">
+        <div class="pull-left">
+            <%@ include file="catalogue_menu.jspf" %>
+        </div>
+        <%@ include file="main_menu.jspf" %>
+        <div class="pull-right">
+            <%@ include file="user_menu.jspf" %>
+        </div>
+    </div>  
 </nav>

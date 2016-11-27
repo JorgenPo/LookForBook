@@ -1,0 +1,65 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+<style>
+    .user-menu > li {
+        position: relative;
+    }
+    
+    .user-menu a {
+        height: 100%;
+    }
+    
+    .user-menu a:hover {
+        color: black !important;
+    }
+    .user-menu-cart .icon {
+        position: relative;
+    }
+    .cart-count {
+        position: absolute;
+        left: 5px;
+        bottom: 12px;
+        color: black;
+    }
+    
+    .user-menu .list-body {
+        position: absolute;
+        left: 0;
+        top: 28px;
+        width: 200%;
+    }
+</style>
+
+<ul class="user-menu">
+    <li>
+        <a class="user-menu-auth list-toggle" list="user-menu-auth-list">
+            My account <span class="icon icon-down"></span></a>
+            <div id="user-menu-auth-list" class="list-body" style="display: none;">
+                <h1><a href="#">Sign in</a></h1>
+                <hr>
+                <a href="#">or Sign Up</a>
+            </div>
+    </li>
+    
+        
+    <li>
+        <a class="user-menu-wishes" href="#">Wish list <span class="icon icon-down"></span></a>
+        <div id="user-menu-wishes-list" style="display: none;"></div>
+    </li>
+    
+    
+    <li>
+        <a class="user-menu-sale" href="#">Sales <span class="icon icon-down"></span></a>
+        <div id="user-menu-sale-list" style="display: none;"></div>
+    </li>
+   
+    
+    <li>
+        <a class="user-menu-cart" href="cart">
+            Cart <span class="icon icon-cart"><span class="cart-count">${cart.getItemsCount()}</span></span>
+            <!--<img class="cart-img" src="<c:url value='/getImage?image=icons/cart.png'/>"
+                 alt="Cart">-->
+        </a>
+    </li>
+</ul>
