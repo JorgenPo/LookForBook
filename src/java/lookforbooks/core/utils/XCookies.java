@@ -18,6 +18,11 @@ public class XCookies {
     
     public XCookies(Cookie[] cookies) {
         this.cookies = new HashMap<>();
+        
+        if (cookies == null) {
+            return;
+        }
+        
         for (int i = 0; i < cookies.length; ++i) {
             this.cookies.put(cookies[i].getName(), cookies[i].getValue());
         }
