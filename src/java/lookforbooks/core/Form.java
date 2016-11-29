@@ -221,6 +221,7 @@ public abstract class Form {
         }
         
         this.dom.set("id", this.id)
+                .set("action", this.action)
                 .set("method", this.method)
                 .set("class", classes.toString());
         
