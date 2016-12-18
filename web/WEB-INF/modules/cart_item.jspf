@@ -18,8 +18,8 @@
         <c:out value="${product.price}" />${tr.translate("*Curency*")}
     </td>
     <td>
-        <input type="number" value="${count}" 
-               onchange="Look.changeBookVal(${product.id}, this)" 
+        <input class="cart-item-count" type="number" disabled value="${count}" 
+               oninput="Look.changeBookVal(${product.id}, this)" 
                min="0" max="${product.stock}">
     </td>
     <td>

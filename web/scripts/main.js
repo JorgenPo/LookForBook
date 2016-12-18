@@ -95,6 +95,10 @@ var Look = {
     },
     
     removeBook(bookid) {
+        var count = document.getElementById('cart-item-' + bookid)
+            .getElementsByClassName('cart-item-count')[0];
+        count = count.value;
+        
         var req = new XMLHttpRequest();
         req.open("POST", this.APP + "/cart?remove=" + bookid, true);
         
@@ -109,17 +113,22 @@ var Look = {
                       self.cartEmpty.style.display = "block";
                   }
               }
+              self.addToCounter(-parseInt(count));
           }  
         };
        
         req.send();
     },
     
+    /* Not using now */
     changeBookVal(bookid, info) {
         if (info.value <= 0) {
             return this.removeBook(bookid);
         } 
-        
-        this.cartCounter.innerHTML = parseInt(this.cartCounter.innerHTML) - info.va;
+    },
+    
+    addToCounter(num) {
+         this.cartCounter.innerHTML 
+            = parseInt(this.cartCounter.innerHTML) + num;
     }
 };
