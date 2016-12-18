@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
+import lookforbooks.Translator;
 import lookforbooks.core.utils.DOMelement;
 import lookforbooks.core.utils.HttpUtils;
 
@@ -152,6 +153,8 @@ public abstract class Form {
     }
 
     public Form setDescription(String description) {
+        description = Translator.getInstance().translate(description);
+        
         this.domDescription.setInnerHtml(description);
         return this;
     }
@@ -161,6 +164,7 @@ public abstract class Form {
     }
 
     public Form setTitle(String title) {
+        title = Translator.getInstance().translate(title);
         this.domTitle.setInnerHtml(title);
         return this;
     }
@@ -186,9 +190,12 @@ public abstract class Form {
     }
     
     public String render() {
+        
+        Translator tr = Translator.getInstance();
+        
         // Generate elements html
         this.dom.setInnerHtml("");
-        
+            
         if (!this.domTitle.isEmpty()) {
             this.dom.append(this.domTitle);
         }

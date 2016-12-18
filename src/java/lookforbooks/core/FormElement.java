@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import lookforbooks.Translator;
 import lookforbooks.core.utils.DOMelement;
 
 /**
@@ -116,6 +117,7 @@ public abstract class FormElement {
     }
     
     public FormElement setLabel(String label) {
+        label = Translator.getInstance().translate(label);
         this.domLabel.setInnerHtml(label);
         return this;
     }

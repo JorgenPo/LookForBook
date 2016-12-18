@@ -102,6 +102,19 @@ public class Localization_ru_RU extends ListResourceBundle {
             {"Last orders", "Последние заказы"},
             {"Wishes", "Список желаемого"},
             {"Change photo", "Сменить фото"},
+            {"Please, enter your account information in fields bellow!"
+                + "After authorization you will be able to make orders and visit"
+                + " almostevery page of this site!", 
+             "Пожалуйста, введите информацию вашего аккаунта ниже!"
+                + "После успешной авторизации вы сможете совершать заказы и посещать"
+                + " почти любую страницу на сайте!"},
+            {"Username", "Имя пользователя"},
+            {"Password", "Пароль"},
+            {"Vacancies", "Vacancies"},
+            {"Vacancies", "Vacancies"},
+            {"Vacancies", "Vacancies"},
+            {"Vacancies", "Vacancies"},
+            {"Vacancies", "Vacancies"},
         };
     }
     

@@ -101,8 +101,14 @@ public class Localization_en_gb extends ListResourceBundle {
             {"Last orders", "Last orders"},
             {"Wishes", "Wishes"},
             {"Change photo", "Change photo"},
-            {"Vacancies", "Vacancies"},
-            {"Vacancies", "Vacancies"},
+            {"Please, enter your account information in fields bellow!"
+                + "After authorization you will be able to make orders and visit"
+                + " almostevery page of this site!", 
+             "Please, enter your account information in fields bellow!"
+                + "After authorization you will be able to make orders and visit"
+                + " almostevery page of this site!"},
+            {"Username", "Username"},
+            {"Password", "Password"},
             {"Vacancies", "Vacancies"},
             {"Vacancies", "Vacancies"},
             {"Vacancies", "Vacancies"},
