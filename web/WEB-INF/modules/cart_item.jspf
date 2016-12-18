@@ -19,7 +19,7 @@
     </td>
     <td>
         <input type="number" value="${count}" 
-               onchange="Look.changeBookVal(${product.id})" 
+               onchange="Look.changeBookVal(${product.id}, this)" 
                min="0" max="${product.stock}">
     </td>
     <td>

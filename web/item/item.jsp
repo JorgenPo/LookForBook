@@ -58,7 +58,7 @@
                 
                 <section class="info">
                     <nav class="info-type menu horizontal">
-                        <ul>
+                        <ul class="horizontal">
                             <li id="short-desc-li" onclick="Item.showShortDesc()" class="active">${tr.translate("Short description")}</li>
                             <li id="full-desc-li" onclick="Item.showFullDesc()">${tr.translate("Full description")}</li>
                             <li id="reviews-li" onclick="Item.showReviews()">${tr.translate("Customers reviews")}</li>
@@ -117,9 +117,9 @@
                     <p class="item-ship-info">
                         ${tr.translate("Shipping to your country is available! Shipping by RuPostal service - will be in 14 - 60 days. Buyer protection enabled!")}
                     </p>
-                    <button id="add-item" class="original" bookId="${item.id}"
+                    <button id="add-item" class="btn original" bookId="${item.id}"
                             onclick="Look.addBook(this)">
-                        ${tr.translate("Add item to cart")}
+                        ${tr.translate("Add item to cart")} <span class="icon icon-cart"></span>
                     </button>
                 </div>
             </aside>

@@ -39,7 +39,15 @@ public class Translator {
     }
     
     public String translate(String string) {
-        return resources.getString(string);
+        String translated;
+        
+        try {
+            translated = resources.getString(string);
+        } catch (Exception e) {
+            translated = "***"+string+"***";
+        } 
+        
+        return translated;
     }
     
     public String getLocale() {

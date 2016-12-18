@@ -33,15 +33,18 @@ header {
     height: 50%;
 }
 
-.menu ul {
+.menu > ul {
     list-style: none;
     padding: 0;
     margin: auto;
 }
 
-.menu.horizontal li{
-    float: left;
+.menu ul.horizontal > li{
     margin-right: 15px;
+}
+
+ul.horizontal > li {
+    display: inline-block;
 }
 
 .menu.horizontal li.active {

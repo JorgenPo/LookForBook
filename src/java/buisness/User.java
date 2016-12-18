@@ -144,7 +144,12 @@ public class User  implements java.io.Serializable {
         this.invoices = invoices;
     }
 
+    public String getFullName() {
 
+        return this.lastName + " "
+                + this.firstName + " " 
+                + this.fatherName;
+    }
 
 
 }

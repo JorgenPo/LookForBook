@@ -1,4 +1,5 @@
 <%-- any content can be specified here e.g.: --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page pageEncoding="UTF-8" %>
 
 <style>
@@ -6,6 +7,11 @@
         position: relative;
     }
     
+    
+    #user-menu-auth-list ul > li:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
     .user-menu a {
         height: 100%;
     }
@@ -27,37 +33,67 @@
         position: absolute;
         left: 0;
         top: 28px;
-        width: 200%;
+        width: 180%;
+    }
+    
+    .list-body *{
+        display: block;
+    }
+    
+    .list-body h1, 
+    .list-body h2 {
+        margin-bottom: 5px;
+    }
+
+    .list-body h1 {
+        color: black;
     }
 </style>
 
 <ul class="user-menu">
     <li>
         <a class="user-menu-auth list-toggle" list="user-menu-auth-list">
-            My account <span class="icon icon-down"></span></a>
+            ${tr.translate("My account")} <span class="icon icon-down"></span></a>
             <div id="user-menu-auth-list" class="list-body" style="display: none;">
-                <h1><a href="#">Sign in</a></h1>
-                <hr>
-                <a href="#">or Sign Up</a>
+                <c:choose>
+                <c:when test="${pageContext.request.remoteUser == null}">
+                    <h2>${tr.translate("Hello, guest!")}</h2>
+                    <h2><a class="underlined" href="${APP}/login">${tr.translate("Sign in.")}</a></h2>
+                    <hr>
+                    <a class="hint" href="${APP}/registration">${tr.translate("or Sign Up")}</a>
+                </c:when>
+                <c:otherwise>
+                    <h2>${tr.translate("Welcome")}, ${pageContext.request.remoteUser}!</h2>
+                    <hr>
+                    <ul>
+                        <li><a href="${APP}/profile" class="icon icon-user">${tr.translate("Profile")}</a></li>
+                        <li><a href="#" class="icon icon-creditcard">${tr.translate("Buyer history")}</a></li>
+                        <li><a href="#" class="icon icon-clock">${tr.translate("Seller history")}</a></li>
+                        <li><a href="#" class="icon icon-mail">${tr.translate("Messages")}</a></li>
+                    </ul>
+                    <hr>
+                    <a href="${APP}/logout">${tr.translate("Exit")}</a>
+                </c:otherwise>
+                </c:choose>
             </div>
     </li>
     
         
     <li>
-        <a class="user-menu-wishes" href="#">Wish list <span class="icon icon-down"></span></a>
+        <a class="user-menu-wishes" href="#">${tr.translate("Wish list")}<span class="icon icon-down"></span></a>
         <div id="user-menu-wishes-list" style="display: none;"></div>
     </li>
     
     
     <li>
-        <a class="user-menu-sale" href="#">Sales <span class="icon icon-down"></span></a>
+        <a class="user-menu-sale" href="#">${tr.translate("Sales")} <span class="icon icon-down"></span></a>
         <div id="user-menu-sale-list" style="display: none;"></div>
     </li>
    
     
     <li>
         <a class="user-menu-cart" href="cart">
-            Cart <span class="icon icon-cart"><span class="cart-count">${cart.getItemsCount()}</span></span>
+            ${tr.translate("Cart")} <span class="icon icon-cart"><span class="cart-count">${cart.getItemsCount()}</span></span>
             <!--<img class="cart-img" src="<c:url value='/getImage?image=icons/cart.png'/>"
                  alt="Cart">-->
         </a>

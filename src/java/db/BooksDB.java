@@ -18,36 +18,37 @@ import org.hibernate.Transaction;
  * @author jorgen
  */
 public class BooksDB {
-    Session session = null;
+    private final Class beanClass = Book.class;
     
     public BooksDB() {
-        this.session = HibernateUtil
-                .getSessionFactory()
-                .openSession();
     }
     
     public List getBooksList(int from, int to) {
         List<Book> books = new ArrayList<>();
         
-        Transaction t = null;
+        Session session = null;
         try {
-            t = session.beginTransaction();
-            Query q = session.createQuery("from Book");
-            q.setFirstResult(from);
+            session = HibernateUtil.getSessionFactory().openSession();
             
-            if (to != -1) {
-                q.setMaxResults(to - from);
-            }
+            session.beginTransaction();
             
-            books = (List<Book>) q.list();
+            books = session
+                    .createCriteria(beanClass)
+                    .setFirstResult(from)
+                    .setMaxResults(to - from)
+                    .list();
             
-            t.commit();
+            session.getTransaction().commit();
         } catch(Exception e) {
-            e.printStackTrace();
-            if (t != null) {
-                t.rollback();
+            if (session != null & 
+                session.getTransaction() != null) {
+                session.getTransaction().rollback();
             }
-        } 
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
         
         return books;
     }
@@ -55,9 +56,10 @@ public class BooksDB {
     public List getBooksLike(String pattern) {
         List<Book> list = null;
         
-        Transaction t = null;
+        Session session = null;
         try {
-            t = session.beginTransaction();
+            session = HibernateUtil.getSessionFactory().openSession(); 
+            session.beginTransaction();
             
             Query q = session.createQuery("FROM Book B WHERE"
                     + " B.title LIKE :searchPattern OR"
@@ -67,10 +69,15 @@ public class BooksDB {
             
             list = q.list();
             
-            t.commit();
+            session.getTransaction().commit();
         } catch(Exception e) {
-            if (t != null) {
-                t.rollback();
+            if (session != null & 
+                session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
             }
         }
         
@@ -80,21 +87,22 @@ public class BooksDB {
     public Book getBookById(Integer id) {
         Book book = null;
         
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        
-        Transaction t = null;
+        Session session = null;
         try {
-            t = session.beginTransaction();
+            session = HibernateUtil.getSessionFactory().openSession(); 
+            session.beginTransaction();
             
-            Query q = session.createQuery("FROM Book B WHERE B.id = :id");
-            q.setInteger("id", id);
+            book = (Book) session.get(beanClass, id);
             
-            book = (Book) q.uniqueResult();
-            
-            t.commit();
+            session.getTransaction().commit();
         } catch(Exception e) {
-            if (t != null) {
-                t.rollback();
+            if (session != null & 
+                session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
             }
         }
         
@@ -104,18 +112,24 @@ public class BooksDB {
     public int getBooksCount() {
         int count = 0;
         
-        Transaction t = null;
+        Session session = null;
         try {
-            t = session.beginTransaction();
+            session = HibernateUtil.getSessionFactory().openSession(); 
+            session.beginTransaction();
+            
             Query q = session.createQuery("SELECT COUNT(*) FROM Book");
             
             count = (Integer) q.uniqueResult();
-            t.commit();
+            session.getTransaction().commit();
         } catch(Exception e) {
-            if (t != null) {
-                t.rollback();
+            if (session != null & 
+                session.getTransaction() != null) {
+                session.getTransaction().rollback();
             }
-            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
         }
         
         return count;
@@ -124,17 +138,23 @@ public class BooksDB {
     public boolean submitBook(Book book) {
         boolean success = true;
         
-        Transaction t = null;
+        Session session = null;
         try {
-            t = session.beginTransaction();
+            session = HibernateUtil.getSessionFactory().openSession(); 
+            session.beginTransaction();
+            
             session.save(book);
-            t.commit();
+            
+            session.getTransaction().commit();
         } catch(Exception e) {
-             if (t != null) {
-                t.rollback();
+            if (session != null & 
+                session.getTransaction() != null) {
+                session.getTransaction().rollback();
             }
-            e.printStackTrace();
-            success = false;
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
         }
         
         return success;

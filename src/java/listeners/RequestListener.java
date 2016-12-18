@@ -43,5 +43,4 @@ public class RequestListener implements ServletRequestListener {
          
         httpRequest.setAttribute("tr", tr);
     }
-    
 }

@@ -8,21 +8,21 @@
 </style>
 
 <section class="search">
-    <ul class="main-menu">
+    <ul class="main-menu horizontal">
         <li>
-            <a class="user-menu-auth" href="#">Certificates</a>
+            <a class="user-menu-auth" href="#">${tr.translate("Certificates")}</a>
         </li>
         <li>
-            <a class="user-menu-wishes" href="#">Coupons</a>
+            <a class="user-menu-wishes" href="#">${tr.translate("Coupons")}</a>
         </li>
         <li>
-            <a class="user-menu-sale" href="#">Events</a>
+            <a class="user-menu-sale" href="#">${tr.translate("Events")}</a>
         </li>
         <li>
-            <a class="user-menu-cart" href="#">Sell</a>
+            <a class="user-menu-cart" href="#">${tr.translate("Sell")}</a>
         </li>
         <li>
-            <a class="user-menu-cart" href="#">Vacancies</a>
+            <a class="user-menu-cart" href="#">${tr.translate("Vacancies")}</a>
         </li>
     </ul>
 </section>

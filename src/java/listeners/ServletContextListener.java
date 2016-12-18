@@ -8,7 +8,6 @@ package listeners;
 import java.util.Calendar;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
-import lookforbooks.Translator;
 
 /**
  * Web application lifecycle listener.
@@ -17,7 +16,8 @@ import lookforbooks.Translator;
  */
 public class ServletContextListener implements javax.servlet.ServletContextListener {
     private static final String HOST = "http://localhost:8080";
-    private static final String APP = HOST + "/LookForBook-war";
+    private static final String CONTEXT = "/lookforbook";
+    private static final String APP = HOST + CONTEXT;
     private static final String MODULES = "LookForBook-war/WEB-INF/modules";
     
     @Override

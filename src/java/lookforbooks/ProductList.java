@@ -10,6 +10,7 @@ import buisness.Cart;
 import db.BooksDB;
 import forms.AddBookForm;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletConfig;
@@ -33,11 +34,14 @@ public class ProductList extends HttpServlet {
         ServletContext context = this.getServletContext();
         ServletConfig config  = this.getServletConfig();
         HttpSession session = request.getSession();
-        Translator tr = (Translator) session.getAttribute("tr");
+        Translator tr = (Translator) request.getAttribute("tr");
+        
+        request.setCharacterEncoding("UTF-8");
         
         BooksDB bdb = new BooksDB();
         
         List<Book> products;
+        
         String query;
         
         if((query = request.getParameter("searchQuery")) != null && !query.equals("")) {
@@ -47,7 +51,7 @@ public class ProductList extends HttpServlet {
             products = bdb.getBooksList(0, -1);
         }
        
-        if (products.isEmpty()) {
+        if (products == null || products.isEmpty()) {
             if (query != null) {
                 request.setAttribute("error", tr.translate("No search results by query"));
             } else {
@@ -65,7 +69,6 @@ public class ProductList extends HttpServlet {
         request.setAttribute("productRowLength", productRowLength);
         request.setAttribute("productImgWidth", itemWidth);
         request.setAttribute("productImgHeight", itemHeight);
-        
         
         this.getServletContext()
                 .getRequestDispatcher("/productlist/index.jsp")

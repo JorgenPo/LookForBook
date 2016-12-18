@@ -10,8 +10,9 @@ and open the template in the editor.
 
 .main-content {
   width: 90%;
-  min-height: 700px;
+  min-height: 600px;
   margin: 10px auto;
+  text-align: center;
 }
 
 .main-content form {

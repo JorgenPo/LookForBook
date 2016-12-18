@@ -5,7 +5,7 @@
     <div class="nav-top">
         <div class="logo pull-left">
             <img class="logo-image" src="<c:url value='/getImage?image=logo.png'/>" alt="Logo"> 
-            <span class="logo-label"><a href="/LookForBook-war/">${tr.translate("Look For Book")}</a></span>
+            <span class="logo-label"><a href="${APP}">${tr.translate("Look For Book")}</a></span>
         </div>
         <%@ include file="search.jspf" %>
         <div class="nav-settings pull-right">

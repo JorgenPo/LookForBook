@@ -1,0 +1,16 @@
+{
+    "name": "FronteX",
+    
+    "version": "1.0.0",
+    
+    "author": "George Popoff <popoff96@live.com>",
+    
+    "license": "GPL v3",
+    
+    "changelist": {
+        "1.0.0": [
+            "Initial version",
+            "List elements available"
+        ]   
+    }
+}

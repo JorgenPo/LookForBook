@@ -44,6 +44,14 @@
             <param-value>1</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>Authorization</servlet-name>
+        <servlet-class>lookforbooks.Authorization</servlet-class>
+        <init-param>
+            <param-name>defaultPage</param-name>
+            <param-value>1</param-value>
+        </init-param>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern> </url-pattern>
@@ -57,6 +65,10 @@
         <url-pattern>/cart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ProductList</servlet-name>
+        <url-pattern>/order</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetImage</servlet-name>
         <url-pattern>/getImage</url-pattern>
     </servlet-mapping>
@@ -64,10 +76,51 @@
         <servlet-name>Item</servlet-name>
         <url-pattern>/item</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Authorization</servlet-name>
+        <url-pattern>/login/*</url-pattern>
+        <url-pattern>/profile/*</url-pattern>
+        <url-pattern>/logout/*</url-pattern>
+    </servlet-mapping>
     
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>
+                /login
+            </form-login-page>
+            <form-error-page>
+                /login?error=true
+            </form-error-page>
+        </form-login-config>
+    </login-config>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>order</web-resource-name>
+            <url-pattern>/order/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>customer</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <security-role>
+        <description>Customer of store</description>
+        <role-name>customer</role-name>
+    </security-role>
+    <security-role>
+        <description>Administrator of store</description>
+        <role-name>administrator</role-name>
+    </security-role>
+    <security-role>
+        <description>like unix</description>
+        <role-name>root</role-name>
+    </security-role>
 </web-app>

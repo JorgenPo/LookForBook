@@ -27,7 +27,7 @@
             <c:if test="${!cart.isEmpty()}">
                 <table id="cart-table">
                     <caption>
-                        Cart items
+                        ${tr.translate("Cart items")}
                     </caption>
                     
                     <colgroup>
@@ -41,12 +41,12 @@
                     
                     <thead>
                         <tr>
-                            <th scope="col">Item</th>
-                            <th scope="col">Item description</th>
-                            <th scope="col">Item price</th>
-                            <th scope="col">Item count</th>
+                            <th scope="col">${tr.translate("Item")}</th>
+                            <th scope="col">${tr.translate("Item")} ${tr.translate("description")}</th>
+                            <th scope="col">${tr.translate("Item")} ${tr.translate("price")}</th>
+                            <th scope="col">${tr.translate("Item")} ${tr.translate("count")}</th>
                             <th scope="col"></th>
-                            <th scope="col">Total</th>
+                            <th scope="col">${tr.translate("Total")}</th>
                         </tr>
                     </thead>
                     
@@ -59,14 +59,14 @@
                     
                 </table>
                 <section id="order-block" align="right">
-                    <h3>Order for: <b>${cart.getTotalPrice()}</b>
-                        ${tr.translate("*Curency*")} total.
+                    <h3> ${tr.translate("Order for")}: <b>${cart.getTotalPrice()}</b>
+                        ${tr.translate("*Curency*")} ${tr.translate("total")}.
                     </h3>
-                    <button class="btn default">Continue order!</button>
+                    <a href="${APP}/order"><button class="btn default">${tr.translate("Continue order")}!</button></a>
                 </section>
             </div>
             </c:if>
-            <p id="cart-empty" style="display: none;"><c:out value="Cart is empty"></c:out></p>
+            <p id="cart-empty" style="display: none;">${tr.translate('Cart is empty')}</p>
         </section>
         <footer><%@ include file="/WEB-INF/modules/footer.jspf" %></footer>
     </body>

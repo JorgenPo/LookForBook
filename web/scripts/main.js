@@ -20,7 +20,9 @@ window.onload = function () {
 };
 
 var Look = {
-    APP: "/LookForBook-war",
+    APP: "/lookforbook",
+    
+    isDomLoaded: false,
     
     loadDOM: function () {
         this.manageLists();
@@ -28,6 +30,8 @@ var Look = {
         this.cartWrap = document.getElementById("cart");
         this.cartEmpty = document.getElementById("cart-empty");
         this.cartCounter = document.querySelector("span.cart-count");
+        
+        this.isDomLoaded = true;
     },
 
     changeLanguage: function (sel) {
@@ -70,6 +74,10 @@ var Look = {
     },
     
     addBook(book) {
+        if ( !this.isDomLoaded ) {
+            this.loadDOM();
+        }
+        
         var bookid = book.getAttribute("bookId");
 
         var req = new XMLHttpRequest();
@@ -103,7 +111,15 @@ var Look = {
               }
           }  
         };
-        
+       
         req.send();
+    },
+    
+    changeBookVal(bookid, info) {
+        if (info.value <= 0) {
+            return this.removeBook(bookid);
+        } 
+        
+        this.cartCounter.innerHTML = parseInt(this.cartCounter.innerHTML) - info.va;
     }
 };
