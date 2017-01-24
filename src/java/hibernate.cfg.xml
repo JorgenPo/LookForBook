@@ -54,5 +54,6 @@ Contributor(s):
     <mapping resource="buisness/User.hbm.xml"/>
     <mapping resource="buisness/Invoice.hbm.xml"/>
     <mapping resource="buisness/LineItem.hbm.xml"/>
+    <mapping resource="buisness/Review.hbm.xml" />
   </session-factory>
 </hibernate-configuration>

@@ -14,19 +14,22 @@
         <property name="invoiceDate" type="timestamp">
             <column name="invoice_date" length="19" not-null="true" />
         </property>
-        <property name="totalAmount" type="short">
+        <property name="totalAmount" type="java.lang.Integer">
             <column name="total_amount" not-null="true" />
         </property>
         <property name="isProcessed" type="string">
-            <column name="is_processed" length="2" />
+            <column name="is_processed" length="2"/>
         </property>
         <property name="delivery" type="string">
             <column name="delivery" length="2" />
         </property>
+        <property name="address" type="string">
+            <column length="100" name="address"/>
+        </property>
         <property name="deliveryCost" type="java.lang.Integer">
             <column name="delivery_cost" />
         </property>
-        <set name="lineItems" table="LineItem" inverse="true" lazy="true" fetch="select">
+        <set name="lineItems" table="LineItem" inverse="true" lazy="false" cascade="all" fetch="select">
             <key>
                 <column name="invoice_id" not-null="true" />
             </key>

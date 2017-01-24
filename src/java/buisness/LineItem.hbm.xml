@@ -8,7 +8,7 @@
             <column name="lineitem_id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="invoice" class="buisness.Invoice" fetch="select">
+        <many-to-one name="invoice" class="buisness.Invoice" cascade="all" fetch="select">
             <column name="invoice_id" not-null="true" />
         </many-to-one>
         <property name="bookId" type="int">

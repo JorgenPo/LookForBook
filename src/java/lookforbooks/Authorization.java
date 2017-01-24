@@ -5,10 +5,17 @@
  */
 package lookforbooks;
 
+import buisness.Book;
+import buisness.Invoice;
+import buisness.Review;
 import buisness.User;
+import db.InvoiceDB;
+import db.ReviewsDB;
 import db.UsersDB;
 import forms.LoginForm;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +35,9 @@ public class Authorization extends HttpServlet {
     private void profileAction (HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
-        User user;
+        request.setCharacterEncoding("UTF-8");
+        
+        User user = null;
         if ( request.getRemoteUser() != null ) {
             UsersDB db = new UsersDB();
             user = db.getUserByEmail(request.getRemoteUser());
@@ -36,8 +45,29 @@ public class Authorization extends HttpServlet {
             if ( user != null ) {
                 request.getSession().setAttribute("user", user);
             }
+            
+            InvoiceDB idb = new InvoiceDB();
+            ArrayList<Invoice> invoices = idb.getUserInvoices(user);
+            
+            HashMap< Invoice, ArrayList<Book> > books = 
+                    new HashMap<>();
+            
+            invoices.forEach(invoice -> {
+                books.put(invoice, idb.getInvoiceBooks(invoice));
+            });
+            
+            request.setAttribute("invoices", invoices);
+            request.setAttribute("books", books);
         }
         
+        ReviewsDB rdb = new ReviewsDB();
+        
+        if ( user != null ) {
+            ArrayList<Review> reviews = rdb.getUserReviews(user);
+            if (reviews != null) {
+                request.setAttribute("reviews", reviews);
+            }
+        }
         request.setAttribute("defaultPage", this .getInitParameter("defaultPage"));
         
         this.getServletContext()

@@ -32,6 +32,8 @@ var Look = {
         this.cartCounter = document.querySelector("span.cart-count");
         
         this.isDomLoaded = true;
+        
+        this.makeClock();
     },
 
     changeLanguage: function (sel) {
@@ -130,5 +132,70 @@ var Look = {
     addToCounter(num) {
          this.cartCounter.innerHTML 
             = parseInt(this.cartCounter.innerHTML) + num;
+    },
+    
+    makeClock() {
+        var clocks = document.querySelectorAll(".clock");
+
+        setInterval(function() {
+            for (var i = 0; i < clocks.length; ++i) {
+                clocks[i].innerHTML = new Date().toTimeString();
+            }
+        }, 1000);
+    },
+    
+    submitReview(form) {
+        var text = form.elements["text"].value;
+        
+        var params = "text=" + encodeURIComponent(text);
+        var req = new XMLHttpRequest();
+        req.open("POST", this.APP + "/review?text=" + encodeURIComponent(text), true);
+        
+        var self = this;
+        req.onreadystatechange = function() {
+          if (req.readyState === 4 && req.status === 200) {
+              form.elements["text"].value = "";
+              self.addReview(text);
+          }
+        };
+       
+        req.send(params);
+        
+        return false;
+    },
+    
+    addReview(review) {
+        var list = document.getElementById("review-list");
+        var items = list.querySelectorAll("tr").length;
+        
+        var item = document.createElement("tr");
+        item.id = "review-" + (items + 1);
+        
+        var info = document.createElement("td");
+        info.classList.add("review-info");
+        
+        var title = document.createElement("a");
+        title.innerHTML = document.getElementById("username").innerHTML;
+        
+        var img = document.createElement("img");
+        img.src = "getImage?image=/profile/avatar_small.png";
+        
+        var date = document.createElement("p");
+        date.classList.add("review-date");
+        date.innerHTML = new Date().toDateString();
+        
+        var text = document.createElement("td");
+        text.classList.add("review-text");
+        text.innerHTML = review;
+        
+        item.appendChild(info);
+        item.appendChild(text);
+        
+        info.appendChild(title);
+        info.appendChild(document.createElement("br"));
+        info.appendChild(img);
+        info.appendChild(date);
+        
+        list.appendChild(item);
     }
 };

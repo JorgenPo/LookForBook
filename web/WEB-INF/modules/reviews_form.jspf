@@ -1,0 +1,46 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %>
+
+<style>
+    form#review-form {
+        margin: 10px 10px;
+        margin-top: 20px;
+        width: 70% !important;
+        min-height: 150px;
+    }
+    textarea {
+        min-height: 80px;
+        text-align: left;
+    }
+    #review-list {
+        margin-top: 15px;
+    }
+</style>
+
+<table id='review-list'>
+    <c:forEach var="review" items="${reviews}">
+        <tr id='review-${review.id}'>
+            <td class='review-info'>
+                <a href="#">${review.user.getFullName()}</a> <br>
+                <img width=50 height=50 src="getImage?image=/profile/avatar.png" />
+                <p class="hint">${review.date}</p>
+            </td>
+            <td class="review-text">
+                <p>${review.text}</p>
+            </td>
+        </tr>
+    </c:forEach>
+</table>
+<form id="review-form" >
+    
+    <label>${tr.translate("Leave here your review of this site!")}</label>
+    <textarea name="text" id="review-text" 
+              placeholder="${tr.translate("Enter your review here")}">
+        
+    </textarea>
+    
+    <input type="submit" 
+           id='review-submit' value='${tr.translate("Commit")}'
+           onclick="return Look.submitReview(document.getElementById('review-form'))" />
+</form>

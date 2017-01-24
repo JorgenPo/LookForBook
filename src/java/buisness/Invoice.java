@@ -15,9 +15,10 @@ public class Invoice  implements java.io.Serializable {
      private Integer invoiceId;
      private User user;
      private Date invoiceDate;
-     private short totalAmount;
+     private Integer totalAmount;
      private String isProcessed;
      private String delivery;
+     private String address;
      private Integer deliveryCost;
      private Set<LineItem> lineItems = new HashSet<LineItem>(0);
 
@@ -25,13 +26,14 @@ public class Invoice  implements java.io.Serializable {
     }
 
 	
-    public Invoice(User user, Date invoiceDate, short totalAmount) {
+    public Invoice(User user, Date invoiceDate, String address, Integer totalAmount) {
         this.user = user;
         this.invoiceDate = invoiceDate;
         this.totalAmount = totalAmount;
+        this.address = address;
     }
     
-    public Invoice(User user, Date invoiceDate, short totalAmount, String isProcessed, String delivery, Integer deliveryCost, Set<LineItem> lineItems) {
+    public Invoice(User user, Date invoiceDate, String address, Integer totalAmount, String isProcessed, String delivery, Integer deliveryCost, Set<LineItem> lineItems) {
        this.user = user;
        this.invoiceDate = invoiceDate;
        this.totalAmount = totalAmount;
@@ -39,6 +41,7 @@ public class Invoice  implements java.io.Serializable {
        this.delivery = delivery;
        this.deliveryCost = deliveryCost;
        this.lineItems = lineItems;
+       this.address = address;
     }
    
     public Integer getInvoiceId() {
@@ -62,11 +65,11 @@ public class Invoice  implements java.io.Serializable {
     public void setInvoiceDate(Date invoiceDate) {
         this.invoiceDate = invoiceDate;
     }
-    public short getTotalAmount() {
+    public Integer getTotalAmount() {
         return this.totalAmount;
     }
     
-    public void setTotalAmount(short totalAmount) {
+    public void setTotalAmount(Integer totalAmount) {
         this.totalAmount = totalAmount;
     }
     public String getIsProcessed() {
@@ -78,6 +81,14 @@ public class Invoice  implements java.io.Serializable {
     }
     public String getDelivery() {
         return this.delivery;
+    }
+    
+     public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
     
     public void setDelivery(String delivery) {

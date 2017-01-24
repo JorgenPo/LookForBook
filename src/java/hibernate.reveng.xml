@@ -45,4 +45,5 @@ Contributor(s):
   <table-filter match-name="Invoice"/>
   <table-filter match-name="Book"/>
   <table-filter match-name="LineItem"/>
+  <table-filter match-name="reviews" />
 </hibernate-reverse-engineering>

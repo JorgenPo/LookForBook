@@ -4,6 +4,14 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    <filter>
+        <filter-name>LogFilter</filter-name>
+        <filter-class>filters.LogFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LogFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <listener>
         <description>ServletContextListener</description>
         <listener-class>listeners.ServletContextListener</listener-class>
@@ -67,6 +75,7 @@
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/order</url-pattern>
+        <url-pattern>/review</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetImage</servlet-name>
@@ -82,13 +91,11 @@
         <url-pattern>/profile/*</url-pattern>
         <url-pattern>/logout/*</url-pattern>
     </servlet-mapping>
-    
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
@@ -100,7 +107,6 @@
             </form-error-page>
         </form-login-config>
     </login-config>
-    
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>order</web-resource-name>
@@ -110,7 +116,6 @@
             <role-name>customer</role-name>
         </auth-constraint>
     </security-constraint>
-    
     <security-role>
         <description>Customer of store</description>
         <role-name>customer</role-name>

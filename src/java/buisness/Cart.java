@@ -97,7 +97,7 @@ public class Cart {
     }
     
     public Invoice getInvoice() {
-        return null;
+        return this.invoice;
     }
     
     public Boolean isEmpty() {

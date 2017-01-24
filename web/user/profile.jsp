@@ -46,6 +46,15 @@
             .user-main > div > h2 {
                 border-bottom: 2px solid #00A8A8;
             }
+            
+            
+            .user-orders > h2 {
+                margin-bottom: 15px;
+            }
+            
+            #last-orders {
+                margin-bottom: 15px;
+            }
         </style>
     </head>
     <body>
@@ -54,11 +63,14 @@
             <section class="user-profile">
                 <div class="user-img pull-left">
                     <figure>
-                        <figcaption>${user.getFullName()}</figcaption>
-                        <img src="https://pp.vk.me/c631619/v631619942/254df/l9vYN8fiEEA.jpg"
+                        <figcaption id="username">${user.getFullName()}</figcaption>
+                        <img width="140" height="140" 
+                            src="getImage?image=/profile/avatar.png"
                              alt="User photo">
                     </figure>
                     <a href="#"> ${tr.translate("Change photo")} </a>
+                    
+                    <p class="clock"></p>
                 </div>
                 
                 <div class="user-info pull-left">
@@ -77,14 +89,20 @@
                 
                 <div class="user-main">
                     <hr>
-
-                    <div class="user-orders">
-                        <h2>${tr.translate("Last orders")}</h2><br>
-                    </div>
                     
                     <div class="user-wishes">
-                        <h2>${tr.translate("Wishes")}</h2><br>
+                        <h2>${tr.translate("Site review")}</h2><br>
+                        <%@ include file="/WEB-INF/modules/reviews_form.jspf" %>
                     </div>
+                    
+                    <hr>
+                    
+                    <div class="user-orders">
+                        <h2>${tr.translate("Last orders")}</h2><br>
+                        
+                        <%@ include file="/WEB-INF/modules/last_orders.jspf" %>
+                    </div>
+                    
                 </div>
             </section>
         </section>
